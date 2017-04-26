@@ -6429,6 +6429,7 @@ deal_with_q2_packet(struct qserver *server, char *rawpkt, int pktlen)
 	int len, rc, complete = 0;
 	int frags = 0, ping = 0, num_players = 0;
 	char *pkt = rawpkt;
+	int use_humanplayers = 0;
 
 	debug(2, "deal_with_q2_packet %p, %d", server, pktlen);
 
@@ -6480,8 +6481,13 @@ deal_with_q2_packet(struct qserver *server, char *rawpkt, int pktlen)
 					server->max_players = -1;
 				}
 				free(value);
-			} else if ((strcmp(key, "clients") == 0) || (strcmp(key, "players") == 0)) {
+			} else if (((strcmp(key, "clients") == 0) || (strcmp(key, "players") == 0)) && !use_humanplayers) {
 				// Num Players
+				server->num_players = atoi(value);
+				free(value);
+			} else if (strcmp(key, "g_humanplayers") == 0) {
+				// Num Players, without bots
+				use_humanplayers = 1;
 				server->num_players = atoi(value);
 				free(value);
 			} else if ((server->server_name == NULL) && (strcmp(key, "pure") == 0)) {
