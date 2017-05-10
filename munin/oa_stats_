@@ -11,9 +11,11 @@ oa_stats_ - Wildcard plugin to monitor the amount of active players on OpenArena
 
 This is a wildcard plugin. It requires running munin-node-configure periodically.
 
+Copy this file to /usr/share/munin/plugins
+
 Put this line to your root crontab, using 'sudo crontab -e':
 
-0-59/5 * * * * munin-node-configure --shell --remove-also | grep oa_stats_ | sh
+0-59/5 * * * * /usr/sbin/munin-node-configure --shell --remove-also | grep oa_stats_ | sh
 
 This plugin does not use environment variables.
 
