@@ -280,4 +280,4 @@ while len(servers_info) != 0:
 
 	time.sleep(0.001) # be nice
 
-print str(num_players) + " players and " + str(num_clients-num_players) + " spectators"
+# print str(num_players) + " players and " + str(num_clients-num_players) + " spectators"
