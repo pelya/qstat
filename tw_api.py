@@ -271,7 +271,7 @@ while len(servers_info) != 0:
 				num_clients += servers_info[0].info["num_clients"]
 			else:
 				num_clients += servers_info[0].info["num_players"]
-			print ( servers_info[0].address[0] + ":" + str(servers_info[0].address[1]) +
+			print ( ":" + servers_info[0].address[0] + ":" + str(servers_info[0].address[1]) +
 					" players " + str(servers_info[0].info["num_players"]) + " " + str(servers_info[0].info["max_players"]) +
 					" ping " + str(servers_info[0].info["ping"]) +
 					" name " + servers_info[0].info["name"])

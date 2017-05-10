@@ -53,13 +53,14 @@ if [ "$1" = "suggest" ]; then
     rm -f $LOG
     ( cd $QSTAT_PATH ; ./qstat -sort g -cfg qstat.cfg -oaam dpmaster.deathmask.net:27950 | grep '^OAAS' | tr -s ' ' > $LOG ; )
     [ -e $LOG ] || exit 1
-    cat $LOG | cut -s -d ' ' -f 2 | sed 's/$/./g'
+    cat $LOG | cut -s -d ' ' -f 2
     exit 0
 fi
 
-NAME="`cat $LOG | grep -F OAAS\ $SERVER | cut -s -d ' ' -f 10-`"
+NAME="`cat $LOG | grep -F OAAS\ $SERVER\  | cut -s -d ' ' -f 10-`"
+echo NAME $NAME
 [ -z "$NAME" ] && exit 1
-PLAYERS="`cat $LOG | grep -F OAAS\ $SERVER | cut -s -d ' ' -f 3`"
+PLAYERS="`cat $LOG | grep -F OAAS\ $SERVER\  | cut -s -d ' ' -f 3`"
 PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
 PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
 
