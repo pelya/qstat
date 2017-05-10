@@ -5,7 +5,7 @@
 
 =head1 NAME
 
-oa_stats_ - Wildcard plugin to monitor the amount of active players on OpenArena servers
+ninslash_stats_ - Wildcard plugin to monitor the amount of active players on OpenArena servers
 
 =head1 CONFIGURATION
 
@@ -40,8 +40,8 @@ GPLv2
 
 . $MUNIN_LIBDIR/plugins/plugin.sh
 
-SERVER=${0##*/oa_stats_}
-LOG=/run/shm/qstat.log
+SERVER=${0##*/ninslash_stats_}
+LOG=/run/shm/ninslash-stats.log
 [ -z "$QSTAT_PATH" ] && QSTAT_PATH=/home/oa/qstat
 
 if [ "$1" = "autoconf" ]; then
@@ -51,17 +51,16 @@ fi
 
 if [ "$1" = "suggest" ]; then
     rm -f $LOG
-    ( cd $QSTAT_PATH ; ./qstat -sort g -cfg qstat.cfg -oaam dpmaster.deathmask.net:27950 | grep '^OAAS' | tr -s ' ' > $LOG ; )
+    ( cd $QSTAT_PATH ; ./tw_api.py > $LOG ; )
     [ -e $LOG ] || exit 1
-    cat $LOG | cut -s -d ' ' -f 2 | sed 's/$/./g'
+    cat $LOG | cut -s -d ' ' -f 1 | sed 's/$/./g'
     exit 0
 fi
 
-NAME="`cat $LOG | grep ^OAAS\ $SERVER | cut -s -d ' ' -f 10-`"
+NAME="`cat $LOG | grep $SERVER | cut -s -d ' ' -f 8-`"
 [ -z "$NAME" ] && exit 1
-PLAYERS="`cat $LOG | grep ^OAAS\ $SERVER | cut -s -d ' ' -f 3`"
-PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
-PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
+PLAYERS_ACTIVE="`cat $LOG | grep $SERVER | cut -s -d ' ' -f 3`"
+PLAYERS_MAX="`cat $LOG | grep $SERVER | cut -s -d ' ' -f 4`"
 
 # echo "players - $PLAYERS -- $PLAYERS_ACTIVE --- $PLAYERS_MAX ----"
 
@@ -70,7 +69,7 @@ if [ "$1" = "config" ]; then
     echo "graph_title $NAME - $SERVER"
     echo "graph_args --base 1000 --lower_limit 0 --upper_limit $PLAYERS_MAX"
     echo 'graph_vlabel Active players'
-    echo 'graph_category OpenArena'
+    echo 'graph_category Ninslash'
     echo "graph_info This graph shows the amount of active players on server $NAME - $SERVER"
     echo 'players.label Players'
     echo 'players.type GAUGE'
