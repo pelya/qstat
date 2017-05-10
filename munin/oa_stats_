@@ -1,0 +1,80 @@
+#!/bin/sh
+# -*- sh -*-
+
+: << =cut
+
+=head1 NAME
+
+oa_stats_ - Wildcard plugin to monitor the amount of active players on OpenArena servers
+
+=head1 CONFIGURATION
+
+This is a wildcard plugin. To monitor an interface, link
+oa_stats_<server>. to this file (with a dot at the end). E.g.
+
+  ln -s /usr/share/munin/plugins/oa_stats_ \
+        /etc/munin/plugins/oa_stats_69.12.73.163:27960.
+
+...will monitor server 69.12.73.163:27960.
+
+This plugin does not use environment variables.
+
+=head1 USAGE
+
+---
+
+=head1 AUTHOR
+
+Unknown author
+
+=head1 LICENSE
+
+GPLv2
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf suggest
+
+=cut
+
+. $MUNIN_LIBDIR/plugins/plugin.sh
+
+SERVER=${0##*/oa_stats_}
+LOG=/run/shm/qstat.log
+
+if [ "$1" = "autoconf" ]; then
+    echo yes
+    exit 0
+fi
+
+if [ "$1" = "suggest" ]; then
+    rm -f $LOG
+    ( cd /home/oa/qstat ; ./qstat -sort g -cfg qstat.cfg -oaam dpmaster.deathmask.net:27950 | grep '^OAAS' | tr -s ' ' > $LOG ; )
+    [ -e $LOG ] || exit 1
+    cat $LOG | cut -s -d ' ' -f 2 | sed 's/$/./g'
+    exit 0
+fi
+
+NAME="`cat $LOG | grep ^OAAS\ $SERVER | cut -s -d ' ' -f 10-`"
+[ -z "$NAME" ] && exit 1
+PLAYERS="`cat $LOG | grep ^OAAS\ $SERVER | cut -s -d ' ' -f 3`"
+PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
+PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
+
+# echo "players - $PLAYERS -- $PLAYERS_ACTIVE --- $PLAYERS_MAX ----"
+
+if [ "$1" = "config" ]; then
+    echo "graph_order players"
+    echo "graph_title $NAME - $SERVER"
+    echo "graph_args --base 1000 --lower_limit 0 --upper_limit $PLAYERS_MAX"
+    echo 'graph_vlabel Active players'
+    echo 'graph_category OpenArena'
+    echo "graph_info This graph shows the amount of active players on server $NAME - $SERVER"
+    echo 'players.label Players'
+    echo 'players.type COUNTER'
+    exit 0
+fi;
+
+echo "players.value $PLAYERS_ACTIVE"
+exit 0
