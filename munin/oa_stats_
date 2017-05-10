@@ -72,7 +72,7 @@ if [ "$1" = "config" ]; then
     echo 'graph_category OpenArena'
     echo "graph_info This graph shows the amount of active players on server $NAME - $SERVER"
     echo 'players.label Players'
-    echo 'players.type COUNTER'
+    echo 'players.type GAUGE'
     exit 0
 fi;
 
