@@ -58,7 +58,6 @@ if [ "$1" = "suggest" ]; then
 fi
 
 NAME="`cat $LOG | grep -F OAAS\ $SERVER\  | cut -s -d ' ' -f 10-`"
-echo NAME $NAME
 [ -z "$NAME" ] && exit 1
 PLAYERS="`cat $LOG | grep -F OAAS\ $SERVER\  | cut -s -d ' ' -f 3`"
 PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
