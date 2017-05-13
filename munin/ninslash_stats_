@@ -15,7 +15,7 @@ Copy this file to /usr/share/munin/plugins
 
 Put this line to your root crontab, using 'sudo crontab -e':
 
-0-59/5 * * * * /usr/sbin/munin-node-configure --shell --remove-also 2>/dev/null | grep -E 'oa_stats_|ninslash_stats_' | sh
+0-59/2 * * * * /usr/sbin/munin-node-configure --shell --remove-also 2>/dev/null | grep -E 'oa_stats_|ninslash_stats_' | sh
 
 This plugin uses environment variable QSTAT_PATH, which is set to /home/oa/qstat by default.
 
@@ -72,6 +72,8 @@ if [ "$1" = "config" ]; then
     echo "graph_info This graph shows the amount of active players on server $NAME - $SERVER"
     echo 'players.label players'
     echo 'players.info Amount of active players'
+    echo 'graph_data_size custom 1d, 1m for 1w, 5m for 1t, 15m for 1y'
+    echo 'update_rate 120'
     #echo 'players.type GAUGE'
     exit 0
 fi;
