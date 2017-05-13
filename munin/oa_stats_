@@ -52,7 +52,6 @@ if [ "$1" = "autoconf" ]; then
 fi
 
 if [ "$1" = "suggest" ]; then
-    rm -f $LOG
     ( cd $QSTAT_PATH ; ./qstat -sort g -cfg qstat.cfg -oaam dpmaster.deathmask.net:27950 | grep '^OAAS' | tr -s ' ' | grep -v ' no response$' > $LOG.tmp ; mv -f $LOG.tmp $LOG ; )
     [ -e $LOG ] || exit 1
     cat $LOG | cut -s -d ' ' -f 2
