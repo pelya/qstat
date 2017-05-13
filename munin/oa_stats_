@@ -51,7 +51,7 @@ fi
 
 if [ "$1" = "suggest" ]; then
     rm -f $LOG
-    ( cd $QSTAT_PATH ; ./qstat -sort g -cfg qstat.cfg -oaam dpmaster.deathmask.net:27950 | grep '^OAAS' | tr -s ' ' > $LOG.tmp ; mv -f $LOG.tmp $LOG ; )
+    ( cd $QSTAT_PATH ; ./qstat -sort g -cfg qstat.cfg -oaam dpmaster.deathmask.net:27950 | grep '^OAAS' | tr -s ' ' | grep -v ' no response$' > $LOG.tmp ; mv -f $LOG.tmp $LOG ; )
     [ -e $LOG ] || exit 1
     cat $LOG | cut -s -d ' ' -f 2
     exit 0
@@ -66,14 +66,14 @@ PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
 # echo "players - $PLAYERS -- $PLAYERS_ACTIVE --- $PLAYERS_MAX ----"
 
 if [ "$1" = "config" ]; then
-    echo "graph_order players"
     echo "graph_title $NAME - $SERVER"
-    echo "graph_args --base 1000 --lower_limit 0 --upper_limit $PLAYERS_MAX"
+    echo "graph_args --base 1000 --lower_limit 0" # --upper_limit $PLAYERS_MAX
     echo 'graph_vlabel Active players'
     echo 'graph_category OpenArena'
     echo "graph_info This graph shows the amount of active players on server $NAME $SERVER"
-    echo 'players.label Players'
-    echo 'players.type GAUGE'
+    echo 'players.label players'
+    echo 'players.info Amount of active players'
+    #echo 'players.type GAUGE'
     exit 0
 fi;
 
