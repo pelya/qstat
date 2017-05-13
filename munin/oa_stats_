@@ -74,7 +74,7 @@ if [ "$1" = "config" ]; then
     echo "graph_info This graph shows the amount of active players on server $NAME $SERVER"
     echo 'players.label players'
     echo 'players.info Amount of active players'
-    echo 'graph_data_size custom 1d, 1m for 1w, 5m for 1t, 15m for 1y'
+    echo 'graph_data_size custom 1m for 1d, 1m for 1w, 5m for 1t, 15m for 1y'
     echo 'update_rate 120'
     #echo 'players.type GAUGE'
     exit 0
