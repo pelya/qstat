@@ -67,7 +67,7 @@ PLAYERS_MAX="`cat $LOG | grep -F $SERVER\  | cut -s -d ' ' -f 4`"
 
 if [ "$1" = "config" ]; then
     echo "graph_title $NAME - $SERVER"
-    echo "graph_args --base 1000 --lower-limit 0" # --upper-limit $PLAYERS_MAX
+    echo "graph_args --base 1000 --lower-limit -0.2" # --upper-limit $PLAYERS_MAX
     echo 'graph_vlabel Active players'
     echo 'graph_category ninslash'
     echo "graph_info This graph shows the amount of active players on server $NAME - $SERVER"
