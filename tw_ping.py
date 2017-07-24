@@ -229,9 +229,9 @@ def get_list2(address):
 
 
 servers_info = []
-address="127.0.0.1:8303"
-if len(sys.argv) > 1:
-	address=sys.argv[1]
+address=("127.0.0.1", 8303)
+if len(sys.argv) > 2:
+	address=(sys.argv[1], int(sys.argv[2]))
 
 s = Server_Info(address, SERVERTYPE_NORMAL)
 servers_info.append(s)
