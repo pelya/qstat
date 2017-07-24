@@ -58,7 +58,7 @@ if [ "$1" = "suggest" ]; then
     exit 0
 fi
 
-NAME="`cat $LOG | grep -F $SERVER\  | cut -s -d ' ' -f 8-`"
+NAME="`cat $LOG | grep -F $SERVER\  | cut -s -d ' ' -f 8- | tr \"'\" \" \"`"
 [ -z "$NAME" ] && exit 1
 PLAYERS_ACTIVE="`cat $LOG | grep -F $SERVER\  | cut -s -d ' ' -f 3`"
 PLAYERS_MAX="`cat $LOG | grep -F $SERVER\  | cut -s -d ' ' -f 4`"
