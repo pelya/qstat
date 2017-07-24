@@ -251,13 +251,13 @@ while len(master_servers) != 0:
 
 servers_info = []
 
-# print str(len(servers)) + " servers"
+print str(len(servers)) + " servers"
 
 for server in servers:
 	s = Server_Info(server[0], server[1])
 	servers_info.append(s)
 	s.start()
-	time.sleep(0.001) # avoid issues
+	time.sleep(0.01) # avoid issues
 
 num_players = 0
 num_clients = 0
@@ -271,13 +271,12 @@ while len(servers_info) != 0:
 				num_clients += servers_info[0].info["num_clients"]
 			else:
 				num_clients += servers_info[0].info["num_players"]
-			print ( ":" + servers_info[0].address[0] + ":" + str(servers_info[0].address[1]) +
-					" players " + str(servers_info[0].info["num_players"]) + " " + str(servers_info[0].info["max_players"]) +
+			print ("Server " + str(servers_info[0].address) + " " + servers_info[0].info["name"] +
 					" ping " + str(servers_info[0].info["ping"]) +
-					" name " + servers_info[0].info["name"])
+					" players " + str(servers_info[0].info["num_players"]) + "/" + str(servers_info[0].info["max_players"]))
 
 		del servers_info[0]
 
-	time.sleep(0.001) # be nice
+	time.sleep(0.1) # be nice
 
-# print str(num_players) + " players and " + str(num_clients-num_players) + " spectators"
+print str(num_players) + " players and " + str(num_clients-num_players) + " spectators"
