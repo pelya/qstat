@@ -25,6 +25,7 @@ qstat_SOURCES = \
 	ts2.c ts2.h \
 	tm.c tm.h \
 	haze.c haze.h \
+	openlierox.c openlierox.h \
 	ottd.c ottd.h \
 	wic.c wic.h \
 	fl.c fl.h \

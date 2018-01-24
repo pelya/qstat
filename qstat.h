@@ -113,6 +113,7 @@ typedef query_status_t (*PacketFunc)(struct qserver *, char *rawpkt, int pktlen)
 #include "ts3.h"
 #include "tm.h"
 #include "wic.h"
+#include "openlierox.h"
 #include "ottd.h"
 #include "tee.h"
 #include "cube2.h"
@@ -273,8 +274,10 @@ typedef query_status_t (*PacketFunc)(struct qserver *, char *rawpkt, int pktlen)
 #define KSP_PROTOCOL_SERVER			77
 #define TF_PROTOCOL_SERVER			78
 #define TEE_MASTER				79
+#define OPENLIEROX_SERVER				80
+#define OPENLIEROX_MASTER				(81 | MASTER_SERVER)
 
-#define LAST_BUILTIN_SERVER			80
+#define LAST_BUILTIN_SERVER			82
 
 #define TF_SINGLE_QUERY				(1 << 1)
 #define TF_OUTFILE				(1 << 2)
@@ -906,6 +909,10 @@ server_type *find_server_type_string(char *type_string);
 	};
 
 	char ravenshield_serverquery[] = "REPORT";
+
+	char openlierox_master_query[] = "\xff\xff\xff\xfflx::getserverlist2";
+
+	char openlierox_server_query[] = "\xff\xff\xff\xfflx::query\x00";
 
 	char ottd_master_query[] =
 	{
@@ -3102,6 +3109,78 @@ server_type *find_server_type_string(char *type_string);
 			NULL,                                                   /* rule_query_func */
 			NULL,                                                   /* player_query_func */
 			deal_with_wic_packet,                                   /* packet_func */
+		},
+		{
+			/* OpenLieroX */
+			OPENLIEROX_SERVER,              /* id */
+			"OLXS",                         /* type_prefix */
+			"olxs",                         /* type_string */
+			"-olxs",                        /* type_option */
+			"OpenLieroX",                   /* game_name */
+			0,                              /* master */
+			23400,                          /* default_port */
+			0,                              /* port_offset */
+			0,                              /* flags */
+			"",                             /* game_rule */
+			"OPENLIEROX",                   /* template_var */
+			(char *)&openlierox_server_query, /* status_packet */
+			sizeof(openlierox_server_query), /* status_len */
+			NULL,                           /* player_packet */
+			0,                              /* player_len */
+			NULL,                           /* rule_packet */
+			0,                              /* rule_len */
+			NULL,                           /* master_packet */
+			0,                              /* master_len */
+			NULL,                           /* master_protocol */
+			NULL,                           /* master_query */
+			display_q2_player_info,         /* display_player_func */
+			display_server_rules,           /* display_rule_func */
+			raw_display_q2_player_info,     /* display_raw_player_func */
+			raw_display_server_rules,       /* display_raw_rule_func */
+			xml_display_player_info,        /* display_xml_player_func */
+			xml_display_server_rules,       /* display_xml_rule_func */
+			json_display_player_info,       /* display_json_player_func */
+			json_display_server_rules,      /* display_json_rule_func */
+			send_openlierox_request_packet, /* status_query_func */
+			NULL,                           /* rule_query_func */
+			NULL,                           /* player_query_func */
+			deal_with_openlierox_packet,    /* packet_func */
+		},
+		{
+			/* OpenLieroX Master */
+			OPENLIEROX_MASTER,              /* id */
+			"OLXM",                         /* type_prefix */
+			"olxm",                         /* type_string */
+			"-olxm",                        /* type_option */
+			"OpenLieroX Master",            /* game_name */
+			OPENLIEROX_SERVER,              /* master */
+			23450,                          /* default_port */
+			0,                              /* port_offset */
+			TF_OUTFILE | TF_QUERY_ARG,      /* flags */
+			"",                             /* game_rule */
+			"OPENLIEROXMASTER",             /* template_var */
+			NULL,                           /* status_packet */
+			0,                              /* status_len */
+			NULL,                           /* player_packet */
+			0,                              /* player_len */
+			NULL,                           /* rule_packet */
+			0,                              /* rule_len */
+			(char *)&openlierox_master_query, /* master_packet */
+			sizeof(openlierox_master_query), /* master_len */
+			NULL,                           /* master_protocol */
+			NULL,                           /* master_query */
+			NULL,                           /* display_player_func */
+			NULL,                           /* display_rule_func */
+			NULL,                           /* display_raw_player_func */
+			NULL,                           /* display_raw_rule_func */
+			NULL,                           /* display_xml_player_func */
+			NULL,                           /* display_xml_rule_func */
+			NULL,                           /* display_json_player_func */
+			NULL,                           /* display_json_rule_func */
+			send_openlieroxmaster_request_packet, /* status_query_func */
+			NULL,                           /* rule_query_func */
+			NULL,                           /* player_query_func */
+			deal_with_openlieroxmaster_packet, /* packet_func */
 		},
 		{
 			/* openTTD */

@@ -32,6 +32,7 @@ SRC = \
 	tm.c \
 	haze.c \
 	wic.c \
+	openlierox.c \
 	ottd.c \
 	fl.c \
 	tee.c \
