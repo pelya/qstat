@@ -5,7 +5,7 @@
 
 =head1 NAME
 
-ninslash_stats_ - Wildcard plugin to monitor the amount of active players on OpenArena servers
+ninslash_stats_ - Wildcard plugin to monitor the amount of active players on Ninslash servers
 
 =head1 CONFIGURATION
 
@@ -15,7 +15,7 @@ Copy this file to /usr/share/munin/plugins
 
 Put this line to your root crontab, using 'sudo crontab -e':
 
-0-59/2 * * * * /usr/sbin/munin-node-configure --shell --remove-also 2>/dev/null | grep -E 'oa_stats_|ninslash_stats_' | sh
+*/2 * * * * /usr/sbin/munin-node-configure --shell --remove-also 2>/dev/null | grep -E 'oa_stats_|ninslash_stats_' | sh
 
 Also edit file /etc/cron.d/munin to increase data collection rate for munin-cron from 5 to 2 minutes.
 
