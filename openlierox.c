@@ -134,7 +134,7 @@ deal_with_openlierox_packet(struct qserver *server, char *rawpkt, int pktlen)
 
 	server->n_servers++;
 	server->n_requests = 1;
-	server->ping_total += time_delta(&packet_recv_time, &server->packet_time1);
+	server->ping_total = time_delta(&packet_recv_time, &server->packet_time1);
 
 	if (pktlen <= strlen(server_reply) + 2 || memcmp(rawpkt, server_reply, strlen(server_reply) + 1) != 0) {
 		malformed_packet(server, "invalid packet header");
@@ -149,8 +149,6 @@ deal_with_openlierox_packet(struct qserver *server, char *rawpkt, int pktlen)
 	name[pos] = 0;
 	rawpkt += pos + 1;
 	pktlen -= pos + 1;
-
-	printf("\nserver %s ping_total %d\n", name, server->ping_total);
 
 	if (pktlen < 3) {
 		malformed_packet(server, "invalid packet");
