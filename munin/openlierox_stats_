@@ -23,6 +23,8 @@ Edit file /etc/cron.d/munin to increase data collection rate for munin-cron from
 
 * * * * *     munin if [ -x /usr/bin/munin-cron ]; then /usr/bin/munin-cron; fi
 
+Enable 'graph_strategy cgi' in Munin, as described here: https://wiki.debian.org/Munin/ApacheConfiguration
+
 This plugin uses environment variable QSTAT_PATH, which is set to /home/oa/qstat by default.
 
 =head1 USAGE
@@ -86,8 +88,8 @@ if [ "$SERVER" = ".master" ]; then
     for f in `cat $LOG | cut -s -d ' ' -f 2`; do
         if [ -e "/etc/munin/plugins/openlierox_stats_$f" ]; then true; else
             RESTART=true
+            ln -s -f "$0" "/etc/munin/plugins/openlierox_stats_$f"
         fi
-        ln -s -f "$0" "/etc/munin/plugins/openlierox_stats_$f"
     done
 
     if $RESTART; then
