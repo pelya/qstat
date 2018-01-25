@@ -68,15 +68,15 @@ PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
 
 if [ "$1" = "config" ]; then
     echo "graph_title $NAME - $SERVER"
-    echo "graph_args --base 1000 --lower-limit -0.2" # --upper-limit $PLAYERS_MAX
+    echo "graph_args --base 1000 --lower-limit -1 --upper-limit 16 --rigid" # --upper-limit $PLAYERS_MAX
     echo 'graph_vlabel Active players'
     echo 'graph_category openarena'
     echo "graph_info This graph shows the amount of active players on server $NAME $SERVER"
     echo 'players.label players'
     echo 'players.info Amount of active players'
-    echo 'graph_data_size custom 2m for 2d, 2m for 2w, 2m for 2t, 16m for 1y'
-    #echo 'graph_data_size huge'
-    echo 'update_rate 120'
+    #echo 'graph_data_size custom 2m for 2d, 2m for 2w, 2m for 2t, 16m for 1y'
+    echo 'graph_data_size huge'
+    echo 'update_rate 60'
     #echo 'players.type GAUGE'
     exit 0
 fi;
