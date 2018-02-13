@@ -78,7 +78,13 @@ if [ "$SERVER" = ".master" ]; then
         exit 0
     fi
 
-    ( cd $QSTAT_PATH ; ./qstat -sort g -cfg qstat.cfg -olxm server.az2000.de:23450 | grep '^OLXS' | tr -s ' ' | grep -v ' no response$' > $LOG.tmp ; mv -f $LOG.tmp $LOG ; )
+    (
+      cd $QSTAT_PATH
+      ./qstat -sort g -cfg qstat.cfg -olxm server.az2000.de:23450 > $LOG.tmp
+      grep 'OLXM server.az2000.de:23450 no response' $LOG.tmp && ./qstat -sort g -cfg qstat.cfg -olxm liero.1337.cx:23450 > $LOG.tmp
+      cat $LOG.tmp | grep '^OLXS' | tr -s ' ' | grep -v ' no response$' > $LOG.tmp2
+      mv -f $LOG.tmp2 $LOG
+    )
 
     SERVERS_ACTIVE="`cat $LOG | wc -l`"
 
