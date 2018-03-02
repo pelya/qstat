@@ -107,10 +107,14 @@ if [ "$SERVER" = ".master" ]; then
 fi
 
 NAME="`cat $LOG | grep -F OLXS\ $SERVER\  | cut -s -d ' ' -f 8- | tr \"'\" \" \"`"
-[ -z "$NAME" ] && exit 1
-PLAYERS="`cat $LOG | grep -F OLXS\ $SERVER\  | cut -s -d ' ' -f 3`"
-PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
-PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
+
+PLAYERS_ACTIVE=-1
+PLAYERS_MAX=16
+[ -n "$NAME" ] && {
+    PLAYERS="`cat $LOG | grep -F OLXS\ $SERVER\  | cut -s -d ' ' -f 3`"
+    PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
+    PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
+}
 
 #echo "players - $PLAYERS -- $PLAYERS_ACTIVE --- $PLAYERS_MAX ----"
 
