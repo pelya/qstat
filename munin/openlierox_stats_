@@ -110,8 +110,8 @@ NAME="`cat $LOG | grep -F OLXS\ $SERVER\  | cut -s -d ' ' -f 8- | tr \"'\" \" \"
 
 PLAYERS_ACTIVE=-1
 PLAYERS_MAX=16
-NAME="~"
-[ -n "$NAME" ] && {
+
+[ -n "`cat $LOG | grep -F OLXS\ $SERVER\  `" ] && {
     PLAYERS="`cat $LOG | grep -F OLXS\ $SERVER\  | cut -s -d ' ' -f 3`"
     PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
     PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
@@ -119,6 +119,7 @@ NAME="~"
 }
 
 [ -z "$NAME" ] && {
+    NAME="~"
     # Delete the server if it's older than 5 days
     find "$0" -mtime +5 -delete
 }
