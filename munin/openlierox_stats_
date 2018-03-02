@@ -114,6 +114,7 @@ PLAYERS_MAX=16
     PLAYERS="`cat $LOG | grep -F OLXS\ $SERVER\  | cut -s -d ' ' -f 3`"
     PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
     PLAYERS_MAX="`echo $PLAYERS | sed 's@[0-9]*/@@'`"
+    touch -h "$0"
 }
 
 #echo "players - $PLAYERS -- $PLAYERS_ACTIVE --- $PLAYERS_MAX ----"
