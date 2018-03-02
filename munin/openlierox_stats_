@@ -110,7 +110,7 @@ NAME="`cat $LOG | grep -F OLXS\ $SERVER\  | cut -s -d ' ' -f 8- | tr \"'\" \" \"
 
 PLAYERS_ACTIVE=-1
 PLAYERS_MAX=16
-
+NAME="~"
 [ -n "$NAME" ] && {
     PLAYERS="`cat $LOG | grep -F OLXS\ $SERVER\  | cut -s -d ' ' -f 3`"
     PLAYERS_ACTIVE="`echo $PLAYERS | sed 's@/[0-9]*@@'`"
