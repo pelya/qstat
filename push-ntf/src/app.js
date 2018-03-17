@@ -209,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const key = subscription.getKey('p256dh');
             const token = subscription.getKey('auth');
-            alert('key: ' + btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) + ' token: ' + btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')))) + ' ep: ' + subscription.endpoint);
 
             fetch('send_push_notification.php', {
                 method: 'POST',
