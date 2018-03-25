@@ -120,8 +120,8 @@ PLAYERS_MAX=16
 
 [ -z "$NAME" ] && {
     NAME="~"
-    # Delete the server if it's older than 5 days
-    find "$0" -mtime +5 -delete
+    # Delete the server if it's older than 2 days
+    find "$0" -mtime +1 -delete
 }
 
 #echo "players - $PLAYERS -- $PLAYERS_ACTIVE --- $PLAYERS_MAX ----"
