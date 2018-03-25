@@ -8,7 +8,7 @@ use Minishlink\WebPush\WebPush;
 $subscription = json_decode(file_get_contents('php://input'), true);
 
 // subject / public key / private key, each on a new line
-$key = file('/var/vapid-push-key.txt', FILE_IGNORE_NEW_LINES) or die('Cannot read VAPID key file')
+$key = file('/var/vapid-push-key.txt', FILE_IGNORE_NEW_LINES) or die('Cannot read VAPID key file');
 $auth = array(
     'VAPID' => array(
         'subject' => $key[0],
