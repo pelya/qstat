@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //const applicationServerKey = "BCmti7ScwxxVAlB7WAyxoOXtV7J8vVCXwEDIFXjKvD-ma-yJx_eHJLdADyyzzTKRGb395bSAtxlh4wuDycO3Ih4";
     const applicationServerKey = "BJsrrAM9yRUHEkbhS-CaMhCTK9uQf0zuKPAns_4GCMmr2SqSsVgjyVrJW5jz95kC0e207RTWPrls-ni6u1os6wY";
     let isPushEnabled = false;
 

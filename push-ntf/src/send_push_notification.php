@@ -7,11 +7,13 @@ use Minishlink\WebPush\WebPush;
 // because you already stored it (cf. push_subscription.php)
 $subscription = json_decode(file_get_contents('php://input'), true);
 
+// subject / public key / private key, each on a new line
+$key = file('/var/vapid-push-key.txt', FILE_IGNORE_NEW_LINES) or die('Cannot read VAPID key file')
 $auth = array(
     'VAPID' => array(
-        'subject' => 'https://liero.1337.cx/push/src',
-        'publicKey' => 'BJsrrAM9yRUHEkbhS-CaMhCTK9uQf0zuKPAns_4GCMmr2SqSsVgjyVrJW5jz95kC0e207RTWPrls-ni6u1os6wY',
-        'privateKey' => 'SOFaLVAi7OxHU4uK22IewfboqEz9sW7kdtQrmtzOfJ4', // in the real world, this would be in a secret file
+        'subject' => $key[0],
+        'publicKey' => $key[1],
+        'privateKey' => $key[2], // in the real world, this would be in a secret file
     ),
 );
 
