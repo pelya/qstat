@@ -1,0 +1,12 @@
+<?php
+$db = new SQLite3();
+$db->open('/var/push-subscribers.db', SQLITE3_OPEN_CREATE) or die('Cannot create database, run as root');
+
+$db->exec('CREATE TABLE subscribers (endpoint TEXT PRIMARY KEY NOT NULL, time INTEGER NOT NULL, servers TEXT, players INTEGER)') or die('Cannot create table, run as root');
+
+$db->close() or die('Cannot write changes, run as root');
+
+chown('/var/push-subscribers.db', 'www-data');
+
+echo "Database is created at /var/push-subscribers.db";
+echo "Using 'www-data' as file owner, adjust file permissions if necessary to match apache2 user name";
