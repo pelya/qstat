@@ -1,5 +1,10 @@
 <html>
 <body>
+    <script type="text/javascript">
+        if (location.protocol != 'https:') {
+            location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+    </script>
     <h1>OpenLieroX server notifier</h1>
     <button id="push-subscription-button">Push notifications !</button>
     <button id="send-push-button">Send a push notification</button>
