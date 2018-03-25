@@ -1,6 +1,5 @@
 <?php
-$db = new SQLite3();
-$db->open('/var/push-subscribers.db', SQLITE3_OPEN_CREATE) or die('Cannot create database, run as root');
+$db = new SQLite3('/var/push-subscribers.db', SQLITE3_OPEN_CREATE) or die('Cannot create database, run as root');
 
 $db->exec('CREATE TABLE subscribers (endpoint TEXT PRIMARY KEY NOT NULL, time INTEGER NOT NULL, servers TEXT, players INTEGER)') or die('Cannot create table, run as root');
 
