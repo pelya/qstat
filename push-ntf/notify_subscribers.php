@@ -3,7 +3,7 @@
 require __DIR__ . '/vendor/autoload.php';
 use Minishlink\WebPush\WebPush;
 
-$dbpath = '/var/push-subscribers.db'
+$dbpath = '/var/push-subscribers.db';
 
 $key = file('/var/vapid-push-key.txt', FILE_IGNORE_NEW_LINES) or die('Cannot read VAPID key file');
 
@@ -33,15 +33,16 @@ $query = 'SELECT endpoint FROM subscribers WHERE updatetime < ' . strval($now) .
 			' AND numplayers <= ' . $argv[2] .
 			" AND servers LIKE '=" . $argv[1] . "=';";
 
-echo $query
+echo $query;
+echo "\n";
 
 $results = $db->query($query) or die('Cannot run SQN query');
 
 while ($row = $results->fetchArray()) {
 	$subscription = json_decode($res[0], true);
-	$message = $argv[2] . ' players on server ' . $argv[3] . ' ' . $argv[1],
+	$message = $argv[2] . ' players on server ' . $argv[3] . ' ' . $argv[1];
 	if ($argv[2] == '1') {
-		$message = $argv[2] . ' player on server ' . $argv[3] . ' ' . $argv[1],
+		$message = $argv[2] . ' player on server ' . $argv[3] . ' ' . $argv[1];
 	}
 
 	$webPush->sendNotification(
@@ -56,14 +57,21 @@ while ($row = $results->fetchArray()) {
 
 $results = $webPush->flush();
 
-foreach ($results as $res) {
-	if (!$res['success']) {
-		if ($res['expired']) {
-			$query = "DELETE FROM subscribers WHERE endpoint = '" . $res['endpoint'] . "';";
-			echo $query
-			$db->query($query) or die('Cannot run SQN query');
+echo $results;
+echo "\n";
+
+if ($results) {
+	foreach ($results as $res) {
+		if (!$res['success']) {
+			if ($res['expired']) {
+				$query = "DELETE FROM subscribers WHERE endpoint = '" . $res['endpoint'] . "';";
+				echo $query;
+				$db->query($query) or die('Cannot run SQN query');
+			}
 		}
 	}
 }
+
+// TODO: delete entries which expired by timeout
 
 $db->close();

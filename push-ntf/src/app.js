@@ -207,8 +207,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			method,
 			body: JSON.stringify({
 				endpoint: subscription.endpoint,
-				key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
-				token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null,
+				key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : "",
+				token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : "",
 				servers: serverListDb
 			}),
 		}).then(() => subscription);
