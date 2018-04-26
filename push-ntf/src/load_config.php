@@ -6,7 +6,7 @@ echo "\n";
 
 $serverListRaw = file('/run/shm/openlierox.log', FILE_IGNORE_NEW_LINES) or die('Cannot read server list');
 
-echo 'function getServerList() { return new Array("';
+echo 'function getServerList() { return new Array(';
 
 $serverList = array();
 $first = true;
@@ -20,5 +20,5 @@ foreach ($serverListRaw as $s) {
 	echo  '["' . $a[1] . '", "' . $a[7] . '"]';
 }
 
-echo  '"); }';
+echo  '); }';
 echo "\n";
