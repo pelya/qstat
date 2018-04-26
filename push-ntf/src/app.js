@@ -193,13 +193,23 @@ document.addEventListener("DOMContentLoaded", () => {
 	function push_sendSubscriptionToServer(subscription, method) {
 		const key = subscription.getKey('p256dh');
 		const token = subscription.getKey('auth');
+		const serverListDb = "";
+
+		for (var i = 0; ; i++) {
+			const server = document.querySelector('#server-' + i.toString());
+			if (!server) {
+				break;
+			}
+			serverListDb += "=" + server.getAttribute("value") + "=";
+		}
 
 		return fetch('push_subscription.php', {
 			method,
 			body: JSON.stringify({
 				endpoint: subscription.endpoint,
 				key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
-				token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null
+				token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null,
+				servers: serverListDb
 			}),
 		}).then(() => subscription);
 	}
