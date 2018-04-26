@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         checkbox.attributes["value"] = serverListArray[i][0];
         //checkbox.attributes["checked"] = "true";
         serverListDiv.appendChild(checkbox);
+        serverListDiv.appendChild(document.createElement("br"));
     }
 
     const applicationServerKey = getServerPublicKey();
