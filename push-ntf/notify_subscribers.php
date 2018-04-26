@@ -17,13 +17,13 @@ $auth = array(
 );
 
 $pushOptions = array(
-	'TTL' => 0, // defaults to 4 weeks
+	'TTL' => 3600, // 1 hour
 	'urgency' => 'normal', // protocol defaults to "normal"
 	'topic' => 'OpenLieroX', // not defined by default
+	'batchSize' => 100, // defaults to 1000
 );
 
 $webPush = new WebPush($auth, $pushOptions);
-
 
 $db = new SQLite3($dbpath, SQLITE3_OPEN_READONLY) or die('Cannot open database');
 
@@ -31,7 +31,7 @@ $now = time();
 
 $query = 'SELECT endpoint FROM subscribers WHERE updatetime < ' . strval($now) .
 			' AND numplayers <= ' . $argv[2] .
-			" AND servers LIKE '=" . $argv[1] .  "=';";
+			" AND servers LIKE '=" . $argv[1] . "=';";
 
 echo $query
 
@@ -48,12 +48,22 @@ while ($row = $results->fetchArray()) {
 		$subscription['endpoint'],
 		$message,
 		$subscription['key'],
-		$subscription['token']
+		$subscription['token'],
+		false,
+		$pushOptions
 	);
 }
 
+$results = $webPush->flush();
+
+foreach ($results as $res) {
+	if (!$res['success']) {
+		if ($res['expired']) {
+			$query = "DELETE FROM subscribers WHERE endpoint = '" . $res['endpoint'] . "';";
+			echo $query
+			$db->query($query) or die('Cannot run SQN query');
+		}
+	}
+}
+
 $db->close();
-
-$webPush->flush();
-
-// handle eventual errors here, and remove the subscription from your server if it is expired
