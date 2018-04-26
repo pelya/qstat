@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     for (var i = 0, len = serverListArray.length; i < len; i++) {
         var checkbox = document.createElement("input");
         checkbox.appendChild(document.createTextNode(serverListArray[i][1] + " (" + serverListArray[i][0] + ")"));
-        checkbox.attributes["id"] = "server-" + i.toString();
-        checkbox.attributes["type"] = "checkbox";
-        checkbox.attributes["value"] = serverListArray[i][0];
-        //checkbox.attributes["checked"] = "true";
+        checkbox.setAttribute("id", "server-" + i.toString());
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("value", serverListArray[i][0]);
+        //checkbox.setAttribute("checked", "true");
         serverListDiv.appendChild(checkbox);
         serverListDiv.appendChild(document.createElement("br"));
     }
