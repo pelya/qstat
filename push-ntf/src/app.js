@@ -1,5 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //const applicationServerKey = "BJsrrAM9yRUHEkbhS-CaMhCTK9uQf0zuKPAns_4GCMmr2SqSsVgjyVrJW5jz95kC0e207RTWPrls-ni6u1os6wY";
+    const serverListDiv = document.querySelector('#server-list');
+    if (!serverListDiv) {
+        return;
+    }
+    const serverListArray = getServerList();
+    for (var i = 0, len = serverListArray.length; i < len; i++) {
+        var checkbox = document.createElement("input");
+        checkbox.appendChild(document.createTextNode(serverListArray[i][1] + " (" + serverListArray[i][0] + ")"));
+        checkbox.attributes["id"] = "server-" + i.toString();
+        checkbox.attributes["type"] = "checkbox";
+        checkbox.attributes["value"] = serverListArray[i][0];
+        //checkbox.attributes["checked"] = "true";
+        serverListDiv.appendChild(checkbox);
+    }
+
     const applicationServerKey = getServerPublicKey();
     let isPushEnabled = false;
 
