@@ -4,4 +4,8 @@ input[type=checkbox] {
   -webkit-transform: scale(2);
   -o-transform: scale(2);
   transform: scale(2);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
 }

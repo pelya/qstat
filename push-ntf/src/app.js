@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		serverListDiv.appendChild(document.createTextNode(serverListArray[i][1] + " (" + serverListArray[i][0] + ")"));
 		serverListDiv.appendChild(document.createElement("br"));
 		serverListDiv.appendChild(document.createElement("br"));
-		serverListDiv.appendChild(document.createElement("br"));
 	}
 
 	const applicationServerKey = getServerPublicKey();
