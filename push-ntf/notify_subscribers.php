@@ -68,6 +68,8 @@ $results = $webPush->flush();
 
 if ($results !== true) {
 	foreach ($results as $res) {
+		echo "Res: " . $res;
+		echo "\n";
 		echo "Status code: " . $res['statusCode'];
 		echo "\n";
 		if (!$res['success']) {
