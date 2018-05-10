@@ -26,7 +26,7 @@ switch ($method) {
 		$query = "INSERT INTO subscribers (endpoint, key, token, " .
 					"updatetime, updateperiod, expiretime, numplayers, servers) VALUES (" .
 					"'" . $subscription['endpoint'] . "', '" . $subscription['key'] . "', '" . $subscription['token'] . "', " .
-					"0, 82800, " . strval($now + 2592000) . ", 1, '" . servers . "');";
+					"0, 82800, " . strval($now + 2592000) . ", 1, '" . $servers . "');";
 		echo $query;
 		echo "\n";
 		$db->query($query);
@@ -36,7 +36,7 @@ switch ($method) {
 		$query = "UPDATE subscribers SET key = '" . $subscription['key'] . "', " .
 					"token = '" . $subscription['token'] . "', " .
 					"updatetime = updateperiod + " . strval($now) . ", " .
-					"servers = '" . servers . "' " .
+					"servers = '" . $servers . "' " .
 					"WHERE endpoint = '" . $subscription['endpoint'] . "';";
 		echo $query;
 		echo "\n";
