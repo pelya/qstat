@@ -37,7 +37,7 @@ switch ($method) {
 					"token = '" . $subscription['token'] . "', " .
 					"updatetime = updateperiod + " . strval($now) . ", " .
 					"servers = '" . servers . "' " .
-					"WHERE endpoint = '" . $subscription['endpoint'] . "';"
+					"WHERE endpoint = '" . $subscription['endpoint'] . "';";
 		echo $query;
 		echo "\n";
 		$db->query($query);
