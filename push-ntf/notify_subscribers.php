@@ -4,7 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Minishlink\WebPush\WebPush;
 
 if (count($argv) < 4) {
-	die("Usage: " . $argv[0] . " ServerIp NumPlayers ServerName");
+	die("\nUsage: " . $argv[0] . " ServerIp NumPlayers ServerName\n");
 }
 
 $dbpath = '/var/lib/openlierox/push-subscribers.db';
@@ -35,7 +35,7 @@ $now = time();
 
 $query = 'SELECT endpoint FROM subscribers WHERE updatetime < ' . strval($now) .
 			' AND numplayers <= ' . $argv[2] .
-			" AND servers LIKE '=" . $argv[1] . "=';";
+			" AND servers LIKE '%=" . $argv[1] . "=%';";
 
 echo $query;
 echo "\n";
@@ -48,6 +48,11 @@ while ($row = $results->fetchArray()) {
 	if ($argv[2] == '1') {
 		$message = $argv[2] . ' player on server ' . $argv[3] . ' ' . $argv[1];
 	}
+
+	echo "Notifying endpoint " . $subscription['endpoint'];
+	echo "\n";
+	echo "Msg: " . $message;
+	echo "\n";
 
 	$webPush->sendNotification(
 		$subscription['endpoint'],
@@ -70,6 +75,7 @@ if ($results) {
 			if ($res['expired']) {
 				$query = "DELETE FROM subscribers WHERE endpoint = '" . $res['endpoint'] . "';";
 				echo $query;
+				echo "\n";
 				$db->query($query) or die('Cannot run SQN query');
 			}
 		}
