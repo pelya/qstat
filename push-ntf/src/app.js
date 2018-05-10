@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function push_sendSubscriptionToServer(subscription, method) {
 		const key = subscription.getKey('p256dh');
 		const token = subscription.getKey('auth');
-		const serverListDb = "";
+		serverListDb = "";
 
 		for (var i = 0; ; i++) {
 			const server = document.querySelector('#server-' + i.toString());
