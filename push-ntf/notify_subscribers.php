@@ -3,9 +3,13 @@
 require __DIR__ . '/vendor/autoload.php';
 use Minishlink\WebPush\WebPush;
 
+if (count($argv) < 4) {
+	die "Usage: " . $argv[0] . " ServerIp NumPlayers ServerName";
+}
+
 $dbpath = '/var/lib/openlierox/push-subscribers.db';
 
-$key = file('/var/vapid-push-key.txt', FILE_IGNORE_NEW_LINES) or die('Cannot read VAPID key file');
+$key = file('/var/lib/openlierox/vapid-push-key.txt', FILE_IGNORE_NEW_LINES) or die('Cannot read VAPID key file');
 
 // subject / public key / private key, each on a new line
 $auth = array(

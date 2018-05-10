@@ -21,5 +21,8 @@ chown($dbpath, 'www-data');
 chgrp($dbpath, 'munin');
 chmod($dbpath, 0664);
 
+echo "\n";
 echo "Database is created at " . $dbpath;
+echo "\n";
 echo "Using 'www-data' as file owner, adjust file permissions if necessary to match apache2 user name";
+echo "\n";

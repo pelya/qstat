@@ -2,4 +2,4 @@ https://liero.1337.cx/push/src
 BJsrrAM9yRUHEkbhS-CaMhCTK9uQf0zuKPAns_4GCMmr2SqSsVgjyVrJW5jz95kC0e207RTWPrls-ni6u1os6wY
 SOFaLVAi7OxHU4uK22IewfboqEz9sW7kdtQrmtzOfJ4
 
-Generate new VAPID key, and put this file to /var/vapid-push-key.txt. Format is: subject, public key, private key. Do not put your new private key to Git or anywhere public.
+Generate new VAPID key, and put this file to /var/lib/openlierox/vapid-push-key.txt. Format is: subject, public key, private key. Do not put your new private key to Git or anywhere public.
