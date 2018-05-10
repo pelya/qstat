@@ -1,12 +1,16 @@
 <?php
 
-$dbpath = '/var/push-subscribers.db';
+mkdir('/var/lib/openlierox');
+chown('/var/lib/openlierox', 'www-data');
+chgrp('/var/lib/openlierox', 'munin');
+chmod('/var/lib/openlierox', 0775);
+
+$dbpath = '/var/lib/openlierox/push-subscribers.db';
 
 unlink($dbpath);
 
 $db = new SQLite3($dbpath) or die('Cannot create database, run as root');
 
-#$db->exec('DROP TABLE subscribers;');
 $db->exec('CREATE TABLE subscribers (endpoint TEXT PRIMARY KEY NOT NULL, key TEXT NOT NULL, token TEXT NOT NULL, ' .
 			'updatetime INTEGER NOT NULL, updateperiod INTEGER NOT NULL, expiretime INTEGER NOT NULL, ' .
 			'numplayers INTEGER NOT NULL, servers TEXT NOT NULL);') or die('Cannot create table, run as root');

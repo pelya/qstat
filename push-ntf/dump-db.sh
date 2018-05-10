@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sqlite3 /var/push-subscribers.db .dump
+sqlite3 /var/lib/openlierox/push-subscribers.db .dump

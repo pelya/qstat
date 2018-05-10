@@ -3,7 +3,7 @@
 require __DIR__ . '/vendor/autoload.php';
 use Minishlink\WebPush\WebPush;
 
-$dbpath = '/var/push-subscribers.db';
+$dbpath = '/var/lib/openlierox/push-subscribers.db';
 
 $key = file('/var/vapid-push-key.txt', FILE_IGNORE_NEW_LINES) or die('Cannot read VAPID key file');
 

@@ -9,7 +9,7 @@ if (!isset($subscription['endpoint']) ||
 	return;
 }
 
-$dbpath = '/var/push-subscribers.db';
+$dbpath = '/var/lib/openlierox/push-subscribers.db';
 
 $db = new SQLite3($dbpath) or die('Cannot open database');
 
