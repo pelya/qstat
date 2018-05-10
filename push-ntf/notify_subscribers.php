@@ -4,7 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Minishlink\WebPush\WebPush;
 
 if (count($argv) < 4) {
-	die "Usage: " . $argv[0] . " ServerIp NumPlayers ServerName";
+	die("Usage: " . $argv[0] . " ServerIp NumPlayers ServerName");
 }
 
 $dbpath = '/var/lib/openlierox/push-subscribers.db';
