@@ -20,6 +20,9 @@ echo 'Current script owner: ' . get_current_user();
 echo "\n";
 echo 'DB path: ' . $dbpath;
 echo "\n";
+$processUser = posix_getpwuid(posix_geteuid());
+echo 'Current process UID: ' . $processUser['name'];
+echo "\n";
 
 switch ($method) {
 	case 'POST':
