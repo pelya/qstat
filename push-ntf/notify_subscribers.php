@@ -43,7 +43,7 @@ echo "\n";
 $results = $db->query($query) or die('Cannot run SQN query');
 
 while ($row = $results->fetchArray()) {
-	$subscription = json_decode($res[0], true);
+	$subscription = json_decode($row[0], true);
 	$message = $argv[2] . ' players on server ' . $argv[3] . ' ' . $argv[1];
 	if ($argv[2] == '1') {
 		$message = $argv[2] . ' player on server ' . $argv[3] . ' ' . $argv[1];
@@ -66,13 +66,12 @@ while ($row = $results->fetchArray()) {
 
 $results = $webPush->flush();
 
-echo $results;
-echo "\n";
-
-if ($results) {
+if ($results !== true) {
 	foreach ($results as $res) {
+		echo "Status code: " . $res['statusCode'];
+		echo "\n";
 		if (!$res['success']) {
-			if ($res['expired']) {
+			if (array_key_exists('expired', $res) && $res['expired']) {
 				$query = "DELETE FROM subscribers WHERE endpoint = '" . $res['endpoint'] . "';";
 				echo $query;
 				echo "\n";
@@ -80,6 +79,9 @@ if ($results) {
 			}
 		}
 	}
+} else {
+	echo "Notification sent";
+	echo "\n";
 }
 
 // TODO: delete entries which expired by timeout
