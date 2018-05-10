@@ -49,6 +49,8 @@ while ($row = $results->fetchArray()) {
 		$message = $argv[2] . ' player on server ' . $argv[3] . ' ' . $argv[1];
 	}
 
+	echo "SQL result: " . $row[0];
+	echo "\n";
 	echo "Notifying endpoint " . $subscription['endpoint'];
 	echo "\n";
 	echo "Msg: " . $message;
@@ -68,7 +70,8 @@ $results = $webPush->flush();
 
 if ($results !== true) {
 	foreach ($results as $res) {
-		echo "Res: " . $res;
+		echo "Res: ";
+		print_r($res);
 		echo "\n";
 		echo "Status code: " . $res['statusCode'];
 		echo "\n";
