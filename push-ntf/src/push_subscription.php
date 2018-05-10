@@ -19,14 +19,11 @@ $now = time();
 switch ($method) {
 	case 'POST':
 		// create a new subscription entry in your database (endpoint is unique)
-		$query = "DELETE FROM subscribers WHERE endpoint = '" . $subscription['endpoint'] . "';";
-		echo $query;
-		echo "\n";
-		$db->query($query);
-		$query = "INSERT INTO subscribers (endpoint, key, token, " .
+		$query = "DELETE FROM subscribers WHERE endpoint = '" . $subscription['endpoint'] . "'; \n" .
+					"INSERT INTO subscribers (endpoint, key, token, " .
 					"updatetime, updateperiod, expiretime, numplayers, servers) VALUES (" .
 					"'" . $subscription['endpoint'] . "', '" . $subscription['key'] . "', '" . $subscription['token'] . "', " .
-					"0, 82800, " . strval($now + 2592000) . ", 1, '" . $servers . "');";
+					"0, 82800, " . strval($now + 2592000) . ", 1, '" . $subscription['servers'] . "');";
 		echo $query;
 		echo "\n";
 		$db->query($query);
@@ -36,7 +33,7 @@ switch ($method) {
 		$query = "UPDATE subscribers SET key = '" . $subscription['key'] . "', " .
 					"token = '" . $subscription['token'] . "', " .
 					"updatetime = updateperiod + " . strval($now) . ", " .
-					"servers = '" . $servers . "' " .
+					"servers = '" . $subscription['servers'] . "' " .
 					"WHERE endpoint = '" . $subscription['endpoint'] . "';";
 		echo $query;
 		echo "\n";
