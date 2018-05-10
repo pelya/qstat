@@ -16,6 +16,11 @@ $db = new SQLite3($dbpath) or die('Cannot open database');
 $method = $_SERVER['REQUEST_METHOD'];
 $now = time();
 
+echo 'Current script owner: ' . get_current_user();
+echo "\n";
+echo 'DB path: ' . $dbpath;
+echo "\n";
+
 switch ($method) {
 	case 'POST':
 		// create a new subscription entry in your database (endpoint is unique)
