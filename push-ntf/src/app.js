@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		for (var i = 0; ; i++) {
 			const server = document.querySelector('#server-' + i.toString());
-			if (!server) {
+			if (!server || !server.hasAttribute("checked")) {
 				break;
 			}
 			serverListDb += "=" + server.getAttribute("value") + "=";
