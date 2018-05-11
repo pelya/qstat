@@ -43,19 +43,10 @@ echo "\n";
 $results = $db->query($query) or die('Cannot run SQN query');
 
 while ($row = $results->fetchArray()) {
-	$message = $argv[2] . ' players on server ' . $argv[3] . ' ' . $argv[1];
+	$message = $argv[2] . ' players on ' . $argv[3];
 	if ($argv[2] == '1') {
-		$message = $argv[2] . ' player on server ' . $argv[3] . ' ' . $argv[1];
+		$message = $argv[2] . ' player on ' . $argv[3];
 	}
-
-	echo "SQL result: " . $row[0];
-	echo "\n";
-	echo "key: " . $row[1];
-	echo "\n";
-	echo "token: " . $row[2];
-	echo "\n";
-	echo "Msg: " . $message;
-	echo "\n";
 
 	$webPush->sendNotification(
 		$row[0],
