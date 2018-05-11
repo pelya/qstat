@@ -33,7 +33,7 @@ $db = new SQLite3($dbpath, SQLITE3_OPEN_READONLY) or die('Cannot open database')
 
 $now = time();
 
-$query = 'SELECT endpoint FROM subscribers WHERE updatetime < ' . strval($now) .
+$query = 'SELECT endpoint, key, token FROM subscribers WHERE updatetime < ' . strval($now) .
 			' AND numplayers <= ' . $argv[2] .
 			" AND servers LIKE '%=" . $argv[1] . "=%';";
 
@@ -43,7 +43,6 @@ echo "\n";
 $results = $db->query($query) or die('Cannot run SQN query');
 
 while ($row = $results->fetchArray()) {
-	$subscription = json_decode($row[0], true);
 	$message = $argv[2] . ' players on server ' . $argv[3] . ' ' . $argv[1];
 	if ($argv[2] == '1') {
 		$message = $argv[2] . ' player on server ' . $argv[3] . ' ' . $argv[1];
@@ -51,16 +50,18 @@ while ($row = $results->fetchArray()) {
 
 	echo "SQL result: " . $row[0];
 	echo "\n";
-	echo "Notifying endpoint " . $subscription['endpoint'];
+	echo "key: " . $row[1];
+	echo "\n";
+	echo "token: " . $row[2];
 	echo "\n";
 	echo "Msg: " . $message;
 	echo "\n";
 
 	$webPush->sendNotification(
-		$subscription['endpoint'],
+		$row[0],
 		$message,
-		$subscription['key'],
-		$subscription['token'],
+		$row[1],
+		$row[2],
 		false,
 		$pushOptions
 	);
