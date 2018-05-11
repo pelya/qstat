@@ -5,3 +5,11 @@ input[type=checkbox] {
   -o-transform: scale(2);
   transform: scale(2);
 }
+
+input[type=radio] {
+  -ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2);
+  transform: scale(2);
+}
