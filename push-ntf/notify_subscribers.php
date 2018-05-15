@@ -29,7 +29,7 @@ $pushOptions = array(
 
 $webPush = new WebPush($auth, $pushOptions);
 
-$db = new SQLite3($dbpath, SQLITE3_OPEN_READONLY) or die('Cannot open database');
+$db = new SQLite3($dbpath) or die('Cannot open database');
 
 $now = time();
 
@@ -47,6 +47,12 @@ while ($row = $results->fetchArray()) {
 	if ($argv[2] == '1') {
 		$message = $argv[2] . ' player on ' . $argv[3];
 	}
+
+	$query = "UPDATE subscribers SET updatetime = updateperiod + " . strval($now) .
+				"WHERE endpoint = '" . $row[0] . "';";
+	echo $query;
+	echo "\n";
+	$db->exec($query);
 
 	$webPush->sendNotification(
 		$row[0],

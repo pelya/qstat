@@ -23,8 +23,7 @@ $now = time();
 switch ($method) {
 	case 'POST':
 		// create a new subscription entry in your database (endpoint is unique)
-		$query = "DELETE FROM subscribers WHERE endpoint = '" . $subscription['endpoint'] . "'; \n" .
-					"INSERT INTO subscribers (endpoint, key, token, " .
+		$query = "INSERT OR REPLACE INTO subscribers (endpoint, key, token, " .
 					"updatetime, updateperiod, expiretime, numplayers, servers) VALUES ('" .
 					SQLite3::escapeString($subscription['endpoint']) . "', '" .
 					SQLite3::escapeString($subscription['key']) . "', '" .
