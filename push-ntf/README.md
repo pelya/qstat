@@ -1,30 +1,24 @@
-# Web Push example in PHP
-
-Navigating through the commits and files will help you build:
-- on the client
-    - a user friendly opt-in push notification button
-- on the server
-    - an endpoint for managing your push notification subscriptions
-    - an endpoint that triggers push notification thanks to [web-push-php](https://github.com/web-push-libs/web-push-php)
+# Web Push notifier for your OpenLieroX masterserver
 
 ## Requirements
 - Chrome or Firefox
-- PHP 5.6+
+- PHP 7
+    - sqlite3
     - gmp
     - mbstring
     - curl
     - openssl
 
 ## Installation
-```bash
-$ composer create-project minishlink/web-push-php-example
-$ cd web-push-php-example
-```
 
-## Usage
+    sudo php ./create_db.php
+    sudo rm -rf /var/www/html
+    sudo ln -s `pwd`/src /var/www/html
 
-```bash
-$ php -S localhost:8000 router.php
-```
+# Generate VAPID key
 
-And open [localhost:8000](http://localhost:8000).
+    sudo cp vapid-push-key.txt /var/lib/openlierox/vapid-push-key.txt
+    php ./create_vapid_key.php
+
+Then edit /var/lib/openlierox/vapid-push-key.txt and put new public key, private key, and subject into this file.
+
