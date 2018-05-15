@@ -1,7 +1,7 @@
 # Web Push notifier for your OpenLieroX masterserver
 
 ## Requirements
-- Chrome or Firefox
+- Apache with mod_php and HTTPS configured with the certificate.
 - PHP 7
     - sqlite3
     - gmp
