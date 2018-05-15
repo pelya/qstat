@@ -205,31 +205,35 @@ document.addEventListener("DOMContentLoaded", () => {
 	function push_sendSubscriptionToServer(subscription, method) {
 		const key = subscription.getKey('p256dh');
 		const token = subscription.getKey('auth');
-		var serverListDb = "";
-		var numplayers = 2;
+		let serverListDb = "";
+		let numplayers = 2;
 		const updateperiodTable = [ 3600, 3600 * 3, 3600 * 6, 3600 * 23, 3600 * 71 ];
-		var updateperiod = updateperiodTable[3];
+		let updateperiod = updateperiodTable[3];
 
 		for (let i = 0; ; i++) {
 			const server = document.querySelector('#server-' + i.toString());
-			if (!server || !server.hasAttribute("checked")) {
+			if (!server) {
 				break;
+			}
+			console.log('server ' + '#server-' + i.toString() + ' checked ' + server.checked);
+			if (!server.checked) {
+				continue;
 			}
 			serverListDb += "=" + server.getAttribute("value") + "=";
 		}
 
 		for (let i = 1; i <= 4; i++) {
 			const elem = document.querySelector('#numplayers-' + i.toString());
-			if (!elem || !elem.hasAttribute("checked")) {
-				break;
+			if (!elem.checked) {
+				continue;
 			}
 			numplayers = i;
 		}
 
 		for (let i = 0; i <= 4; i++) {
 			const elem = document.querySelector('#updateperiod-' + i.toString());
-			if (!elem || !elem.hasAttribute("checked")) {
-				break;
+			if (!elem.checked) {
+				continue;
 			}
 			updateperiod = updateperiodTable[i];
 		}
