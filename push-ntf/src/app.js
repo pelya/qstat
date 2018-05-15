@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		checkbox.setAttribute("id", "server-" + i.toString());
 		checkbox.setAttribute("type", "checkbox");
 		checkbox.setAttribute("value", serverListArray[i][0]);
-		//checkbox.setAttribute("checked", "true");
+		checkbox.setAttribute("checked", "1");
+		checkbox.disabled = true;
 		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0"));
 		serverListDiv.appendChild(checkbox);
 		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0" + serverListArray[i][1] + " (" + serverListArray[i][0] + ")"));
@@ -71,25 +72,26 @@ document.addEventListener("DOMContentLoaded", () => {
 	function changePushButtonState (state) {
 		switch (state) {
 			case 'enabled':
-				pushButton.disabled = false;
 				pushButton.textContent = "Disable Push notifications";
 				isPushEnabled = true;
+				push_enableControls(true);
 				break;
 			case 'disabled':
-				pushButton.disabled = false;
 				pushButton.textContent = "Enable Push notifications";
 				isPushEnabled = false;
+				push_enableControls(true);
 				break;
 			case 'computing':
-				pushButton.disabled = true;
 				pushButton.textContent = "Loading...";
+				push_enableControls(false);
 				break;
 			case 'incompatible':
-				pushButton.disabled = true;
 				pushButton.textContent = "Push notifications are not compatible with this browser";
+				push_enableControls(false);
 				break;
 			default:
 				console.error('Unhandled push button state', state);
+				push_enableControls(false);
 				break;
 		}
 	}
@@ -233,5 +235,30 @@ document.addEventListener("DOMContentLoaded", () => {
 				updateperiod: updateperiod,
 			}),
 		}).then(() => subscription);
+	}
+
+	function push_enableControls(enable) {
+		pushButton.disabled = !enable;
+		for (let i = 0; ; i++) {
+			const elem = document.querySelector('#server-' + i.toString());
+			if (!elem) {
+				break;
+			}
+			elem.disabled = !enable;
+		}
+		for (let i = 1; i <= 4; i++) {
+			const elem = document.querySelector('#numplayers-' + i.toString());
+			if (!elem) {
+				continue;
+			}
+			elem.disabled = !enable;
+		}
+		for (let i = 0; i <= 4; i++) {
+			const elem = document.querySelector('#updateperiod-' + i.toString());
+			if (!elem) {
+				continue;
+			}
+			elem.disabled = !enable;
+		}
 	}
 });
