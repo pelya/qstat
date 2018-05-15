@@ -10,11 +10,11 @@
 			location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
 		}
 	</script>
-	<h1>OpenLieroX server notifier</h1>
+	<h1>OpenLieroX player notifications</h1>
 	<table style="width:90%">
 		<tr>
 			<td>
-				<h3><button id="push-subscription-button">Push notifications !</button></h3>
+				<button id="push-subscription-button">Push notifications !</button>
 			</td>
 			<td>
 				<h3><a href="/munin/localdomain/localhost.localdomain/index.html">Server usage graphs</a></h3>
@@ -25,6 +25,7 @@
 	<br/>
 	<br/>
 	<br/>
+	<h4>Minimum amount of players</h4>
 	<div>
 		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-1" value="1" disabled="1">&nbsp;&nbsp;&nbsp;&nbsp;
 		1 player on the server<br/><br/>
@@ -38,6 +39,7 @@
 	<br/>
 	<br/>
 	<br/>
+	<h4>How often to notify</h4>
 	<div>
 		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-0" value="0" disabled="1">&nbsp;&nbsp;&nbsp;&nbsp;
 		Notify once per hour<br/><br/>
@@ -53,6 +55,7 @@
 	<br/>
 	<br/>
 	<br/>
+	<h4>Servers to monitor</h4>
 	<div id="server-list"></div>
 	<script type="text/javascript" src="load_config.php"></script>
 	<script type="text/javascript" src="app.js"></script>
