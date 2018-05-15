@@ -40,7 +40,7 @@ $query = 'SELECT endpoint, key, token FROM subscribers WHERE updatetime < ' . st
 echo $query;
 echo "\n";
 
-$results = $db->query($query) or die('Cannot run SQN query');
+$results = $db->query($query) or die('Cannot run SQL query');
 
 while ($row = $results->fetchArray()) {
 	$message = $argv[2] . ' players on ' . $argv[3];

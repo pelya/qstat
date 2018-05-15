@@ -193,14 +193,33 @@ document.addEventListener("DOMContentLoaded", () => {
 	function push_sendSubscriptionToServer(subscription, method) {
 		const key = subscription.getKey('p256dh');
 		const token = subscription.getKey('auth');
-		serverListDb = "";
+		let serverListDb = "";
+		let numplayers = 2;
+		const updateperiodTable = [ 3600, 3600 * 3, 3600 * 6, 3600 * 23, 3600 * 71 ];
+		let updateperiod = updateperiodTable[3];
 
-		for (var i = 0; ; i++) {
+		for (let i = 0; ; i++) {
 			const server = document.querySelector('#server-' + i.toString());
 			if (!server || !server.hasAttribute("checked")) {
 				break;
 			}
 			serverListDb += "=" + server.getAttribute("value") + "=";
+		}
+
+		for (let i = 1; i <= 4; i++) {
+			const elem = document.querySelector('#numplayers-' + i.toString());
+			if (!elem || !elem.hasAttribute("checked")) {
+				break;
+			}
+			numplayers = i;
+		}
+
+		for (let i = 0; i <= 4; i++) {
+			const elem = document.querySelector('#updateperiod-' + i.toString());
+			if (!elem || !elem.hasAttribute("checked")) {
+				break;
+			}
+			updateperiod = updateperiodTable[i];
 		}
 
 		return fetch('push_subscription.php', {
@@ -209,45 +228,10 @@ document.addEventListener("DOMContentLoaded", () => {
 				endpoint: subscription.endpoint,
 				key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : "",
 				token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : "",
-				servers: serverListDb
+				servers: serverListDb,
+				numplayers: numplayers,
+				updateperiod: updateperiod,
 			}),
 		}).then(() => subscription);
 	}
-
-	/**
-	 * START send_push_notification
-	 * this part handles the button that calls the endpoint that triggers a notification
-	 * in the real world, you wouldn't need this, because notifications are typically sent from backend logic
-	 */
-
-	const sendPushButton = document.querySelector('#send-push-button');
-	if (!sendPushButton) {
-		return;
-	}
-
-	sendPushButton.addEventListener('click', () =>
-		navigator.serviceWorker.ready
-		.then(serviceWorkerRegistration => serviceWorkerRegistration.pushManager.getSubscription())
-		.then(subscription => {
-			if (!subscription) {
-				alert('Please enable push notifications');
-				return;
-			}
-
-			const key = subscription.getKey('p256dh');
-			const token = subscription.getKey('auth');
-
-			fetch('send_push_notification.php', {
-				method: 'POST',
-				body: JSON.stringify({
-					endpoint: subscription.endpoint,
-					key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) : null,
-					token: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')))) : null
-				})
-			})
-		})
-	);
-	/**
-	 * END send_push_notification
-	 */
 });

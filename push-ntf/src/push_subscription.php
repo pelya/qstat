@@ -3,8 +3,12 @@ $subscription = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($subscription['endpoint']) ||
 	!isset($subscription['servers']) ||
+	!isset($subscription['numplayers']) ||
+	!isset($subscription['updatetime']) ||
 	!isset($subscription['key']) ||
-	!isset($subscription['token'])) {
+	!isset($subscription['token']) ||
+	intval($subscription['numplayers']) < 1 ||
+	intval($subscription['updateperiod']) < 3600) {
 	echo 'Error: not a subscription';
 	return;
 }
@@ -29,27 +33,35 @@ switch ($method) {
 		// create a new subscription entry in your database (endpoint is unique)
 		$query = "DELETE FROM subscribers WHERE endpoint = '" . $subscription['endpoint'] . "'; \n" .
 					"INSERT INTO subscribers (endpoint, key, token, " .
-					"updatetime, updateperiod, expiretime, numplayers, servers) VALUES (" .
-					"'" . $subscription['endpoint'] . "', '" . $subscription['key'] . "', '" . $subscription['token'] . "', " .
-					"0, 82800, " . strval($now + 2592000) . ", 1, '" . $subscription['servers'] . "');";
+					"updatetime, updateperiod, expiretime, numplayers, servers) VALUES ('" .
+					SQLite3::escapeString($subscription['endpoint']) . "', '" .
+					SQLite3::escapeString($subscription['key']) . "', '" .
+					SQLite3::escapeString($subscription['token']) . "', 0, " .
+					strval(intval($subscription['updateperiod'])) . ", " .
+					strval($now + 2592000) . ", " .
+					strval(intval($subscription['numplayers'])) . ", '" .
+					SQLite3::escapeString($subscription['servers']) . "');";
 		echo $query;
 		echo "\n";
 		$db->query($query);
 		break;
 	case 'PUT':
 		// update the key and token of subscription corresponding to the endpoint
-		$query = "UPDATE subscribers SET key = '" . $subscription['key'] . "', " .
-					"token = '" . $subscription['token'] . "', " .
-					"updatetime = updateperiod + " . strval($now) . ", " .
-					"servers = '" . $subscription['servers'] . "' " .
-					"WHERE endpoint = '" . $subscription['endpoint'] . "';";
+		$query = "UPDATE subscribers SET key = '" .
+					SQLite3::escapeString($subscription['key']) . "', token = '" .
+					SQLite3::escapeString($subscription['token']) . "', updateperiod = " .
+					strval(intval($subscription['updateperiod'])) . ", servers = '" .
+					SQLite3::escapeString($subscription['servers']) . "', numplayers = " .
+					strval(intval($subscription['numplayers'])) . " WHERE endpoint = '" .
+					SQLite3::escapeString($subscription['endpoint']) . "';";
 		echo $query;
 		echo "\n";
 		$db->query($query);
 		break;
 	case 'DELETE':
 		// delete the subscription corresponding to the endpoint
-		$query = "DELETE FROM subscribers WHERE endpoint = '" . $subscription['endpoint'] . "';";
+		$query = "DELETE FROM subscribers WHERE endpoint = '" .
+					SQLite3::escapeString($subscription['endpoint']) . "';";
 		echo $query;
 		echo "\n";
 		$db->query($query);
