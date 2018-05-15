@@ -1,6 +1,8 @@
 #!/bin/sh
 # -*- sh -*-
 
+NOTIFY_SUBSCRIBERS_SCRIPT="php /home/pelya/qstat/push-ntf/notify_subscribers.php"
+
 : << =cut
 
 =head1 NAME
@@ -142,5 +144,9 @@ if [ "$1" = "config" ]; then
 fi;
 
 echo "players.value $PLAYERS_ACTIVE"
+
+if [ -n "$NOTIFY_SUBSCRIBERS_SCRIPT" ]; then
+    $NOTIFY_SUBSCRIBERS_SCRIPT "$SERVER" "$PLAYERS_ACTIVE" "$NAME" >>/tmp/openlierox-notify-subscribers.log 2>&1
+fi
 
 exit 0
