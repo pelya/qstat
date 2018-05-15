@@ -4,7 +4,7 @@ $subscription = json_decode(file_get_contents('php://input'), true);
 if (!isset($subscription['endpoint']) ||
 	!isset($subscription['servers']) ||
 	!isset($subscription['numplayers']) ||
-	!isset($subscription['updatetime']) ||
+	!isset($subscription['updateperiod']) ||
 	!isset($subscription['key']) ||
 	!isset($subscription['token']) ||
 	intval($subscription['numplayers']) < 1 ||
