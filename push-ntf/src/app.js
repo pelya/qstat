@@ -11,12 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
 		checkbox.setAttribute("value", serverListArray[i][0]);
 		checkbox.setAttribute("checked", "1");
 		checkbox.disabled = true;
-		checkbox.click = push_enableControls;
+		checkbox.click = push_updateSubscription;
 		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0"));
 		serverListDiv.appendChild(checkbox);
 		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0" + serverListArray[i][1] + " (" + serverListArray[i][0] + ")"));
 		serverListDiv.appendChild(document.createElement("br"));
 		serverListDiv.appendChild(document.createElement("br"));
+	}
+	for (let i = 1; i <= 4; i++) {
+		const elem = document.querySelector('#numplayers-' + i.toString());
+		elem.click = push_updateSubscription;
+	}
+	for (let i = 0; i <= 4; i++) {
+		const elem = document.querySelector('#updateperiod-' + i.toString());
+		elem.click = push_updateSubscription;
 	}
 
 	const applicationServerKey = getServerPublicKey();
@@ -249,16 +257,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 		for (let i = 1; i <= 4; i++) {
 			const elem = document.querySelector('#numplayers-' + i.toString());
-			if (!elem) {
-				continue;
-			}
 			elem.disabled = !enable;
 		}
 		for (let i = 0; i <= 4; i++) {
 			const elem = document.querySelector('#updateperiod-' + i.toString());
-			if (!elem) {
-				continue;
-			}
 			elem.disabled = !enable;
 		}
 	}
