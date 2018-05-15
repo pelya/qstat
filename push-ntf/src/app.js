@@ -120,6 +120,26 @@ document.addEventListener("DOMContentLoaded", () => {
 		return outputArray;
 	}
 
+	function push_updateSubscription() {
+		console.log('push_updateSubscription() called');
+		navigator.serviceWorker.ready.then(serviceWorkerRegistration => serviceWorkerRegistration.pushManager.getSubscription())
+		.then(subscription => {
+			changePushButtonState('disabled');
+
+			if (!subscription) {
+				// We aren't subscribed to push, so set UI to allow the user to enable push
+				return;
+			}
+
+			// Keep your server in sync with the latest endpoint
+			return push_sendSubscriptionToServer(subscription, 'PUT');
+		})
+		.then(subscription => subscription && changePushButtonState('enabled')) // Set your UI to show they have subscribed for push messages
+		.catch(e => {
+			console.error('Error when updating the subscription', e);
+		});
+	}
+
 	function push_subscribe() {
 		changePushButtonState('computing');
 
@@ -148,25 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				console.error('Impossible to subscribe to push notifications', e);
 				changePushButtonState('disabled');
 			}
-		});
-	}
-
-	function push_updateSubscription() {
-		navigator.serviceWorker.ready.then(serviceWorkerRegistration => serviceWorkerRegistration.pushManager.getSubscription())
-		.then(subscription => {
-			changePushButtonState('disabled');
-
-			if (!subscription) {
-				// We aren't subscribed to push, so set UI to allow the user to enable push
-				return;
-			}
-
-			// Keep your server in sync with the latest endpoint
-			return push_sendSubscriptionToServer(subscription, 'PUT');
-		})
-		.then(subscription => subscription && changePushButtonState('enabled')) // Set your UI to show they have subscribed for push messages
-		.catch(e => {
-			console.error('Error when updating the subscription', e);
 		});
 	}
 
