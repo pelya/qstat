@@ -81,12 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	function changePushButtonState (state) {
 		switch (state) {
 			case 'enabled':
-				pushButton.textContent = "Disable Push notifications";
+				pushButton.textContent = "Disable notifications";
 				isPushEnabled = true;
 				push_enableControls(true);
 				break;
 			case 'disabled':
-				pushButton.textContent = "Enable Push notifications";
+				pushButton.textContent = "Enable notifications";
 				isPushEnabled = false;
 				push_enableControls(false);
 				pushButton.disabled = false;
