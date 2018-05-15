@@ -205,10 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	function push_sendSubscriptionToServer(subscription, method) {
 		const key = subscription.getKey('p256dh');
 		const token = subscription.getKey('auth');
-		let serverListDb = "";
-		let numplayers = 2;
+		var serverListDb = "";
+		var numplayers = 2;
 		const updateperiodTable = [ 3600, 3600 * 3, 3600 * 6, 3600 * 23, 3600 * 71 ];
-		let updateperiod = updateperiodTable[3];
+		var updateperiod = updateperiodTable[3];
 
 		for (let i = 0; ; i++) {
 			const server = document.querySelector('#server-' + i.toString());

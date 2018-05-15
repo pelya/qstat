@@ -20,14 +20,6 @@ $db = new SQLite3($dbpath) or die('Cannot open database');
 $method = $_SERVER['REQUEST_METHOD'];
 $now = time();
 
-echo 'Current script owner: ' . get_current_user();
-echo "\n";
-echo 'DB path: ' . $dbpath;
-echo "\n";
-$processUser = posix_getpwuid(posix_geteuid());
-echo 'Current process UID: ' . $processUser['name'];
-echo "\n";
-
 switch ($method) {
 	case 'POST':
 		// create a new subscription entry in your database (endpoint is unique)
@@ -41,7 +33,7 @@ switch ($method) {
 					strval($now + 2592000) . ", " .
 					strval(intval($subscription['numplayers'])) . ", '" .
 					SQLite3::escapeString($subscription['servers']) . "');";
-		echo $query;
+		echo str_replace(",", ",\n", $query);
 		echo "\n";
 		$db->query($query);
 		break;
@@ -55,7 +47,7 @@ switch ($method) {
 					strval(intval($subscription['numplayers'])) . ", expiretime = " .
 					strval($now + 2592000) . " WHERE endpoint = '" .
 					SQLite3::escapeString($subscription['endpoint']) . "';";
-		echo $query;
+		echo str_replace(",", ",\n", $query);
 		echo "\n";
 		$db->query($query);
 		break;
