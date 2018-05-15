@@ -49,7 +49,7 @@ while ($row = $results->fetchArray()) {
 	}
 
 	$query = "UPDATE subscribers SET updatetime = updateperiod + " . strval($now) .
-				"WHERE endpoint = '" . $row[0] . "';";
+				" WHERE endpoint = '" . $row[0] . "';";
 	echo $query;
 	echo "\n";
 	$db->exec($query);
