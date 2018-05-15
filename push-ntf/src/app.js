@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		checkbox.setAttribute("value", serverListArray[i][0]);
 		checkbox.setAttribute("checked", "1");
 		checkbox.disabled = true;
+		checkbox.click = push_enableControls;
 		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0"));
 		serverListDiv.appendChild(checkbox);
 		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0" + serverListArray[i][1] + " (" + serverListArray[i][0] + ")"));
