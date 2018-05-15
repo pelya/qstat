@@ -88,7 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			case 'disabled':
 				pushButton.textContent = "Enable Push notifications";
 				isPushEnabled = false;
-				push_enableControls(true);
+				push_enableControls(false);
+				pushButton.disabled = false;
 				break;
 			case 'computing':
 				pushButton.textContent = "Loading...";
