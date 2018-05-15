@@ -52,7 +52,8 @@ switch ($method) {
 					SQLite3::escapeString($subscription['token']) . "', updateperiod = " .
 					strval(intval($subscription['updateperiod'])) . ", servers = '" .
 					SQLite3::escapeString($subscription['servers']) . "', numplayers = " .
-					strval(intval($subscription['numplayers'])) . " WHERE endpoint = '" .
+					strval(intval($subscription['numplayers'])) . ", expiretime = " .
+					strval($now + 2592000) . " WHERE endpoint = '" .
 					SQLite3::escapeString($subscription['endpoint']) . "';";
 		echo $query;
 		echo "\n";
