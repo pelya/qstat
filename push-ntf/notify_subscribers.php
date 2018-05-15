@@ -67,18 +67,20 @@ while ($row = $results->fetchArray()) {
 $results = $webPush->flush();
 
 if ($results !== true) {
-	foreach ($results as $res) {
-		echo "Res: ";
-		print_r($res);
-		echo "\n";
-		echo "Status code: " . $res['statusCode'];
-		echo "\n";
-		if (!$res['success']) {
-			if (array_key_exists('expired', $res) && $res['expired']) {
-				$query = "DELETE FROM subscribers WHERE endpoint = '" . $res['endpoint'] . "';";
-				echo $query;
-				echo "\n";
-				$db->query($query) or die('Cannot run SQN query');
+	if ($results !== false) {
+		foreach ($results as $res) {
+			echo "Res: ";
+			print_r($res);
+			echo "\n";
+			echo "Status code: " . $res['statusCode'];
+			echo "\n";
+			if (!$res['success']) {
+				if (array_key_exists('expired', $res) && $res['expired']) {
+					$query = "DELETE FROM subscribers WHERE endpoint = '" . $res['endpoint'] . "';";
+					echo $query;
+					echo "\n";
+					$db->query($query) or die('Cannot run SQN query');
+				}
 			}
 		}
 	}
