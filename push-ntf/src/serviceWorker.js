@@ -4,12 +4,10 @@ self.addEventListener('push', function (event) {
 	}
 
 	const sendNotification = body => {
-		// you could refresh a notification badge here with postMessage API
-		const title = "OpenLieroX";
-
-		return self.registration.showNotification(title, {
+		return self.registration.showNotification("OpenLieroX", {
 			body,
 			"icon": "https://liero.1337.cx/openlierox.png",
+			"badge": "https://liero.1337.cx/openlierox-badge.png",
 			"tag": "OpenLieroX",
 		});
 	};
