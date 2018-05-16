@@ -17,11 +17,12 @@ input[type=radio] {
 .clickable {
   border-style: hidden;
   border-color: black;
-  border-width: 2px;
+  border-width: thin;
 }
 
 .clickable:hover {
+  background-color: LightGray;
   border-style: dotted;
   border-color: black;
-  border-width: 2px;
+  border-width: thin;
 }
