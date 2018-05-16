@@ -15,7 +15,6 @@ input[type=radio] {
 }
 
 .clickable {
-  background-color: red;
   border-style: hidden;
   border-color: gray;
   border-width: thin;
