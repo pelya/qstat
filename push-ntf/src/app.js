@@ -1,8 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-	const serverListDiv = document.querySelector('#server-list');
-	if (!serverListDiv) {
-		return;
+
+	if (/Mobi/.test(navigator.userAgent)) {
+		const phoneHelpText = document.querySelector('#label-phone');
+		phoneHelpText.style.display = "block";
 	}
+
+	const serverListDiv = document.querySelector('#server-list');
+
 	const serverListArray = getServerList();
 	for (var i = 0, len = serverListArray.length; i < len; i++) {
 		var checkbox = document.createElement("input");
