@@ -15,14 +15,11 @@ input[type=radio] {
 }
 
 .clickable {
-  border-style: hidden;
-  border-color: gray;
+  border-style: dotted;
+  border-color: transparent;
   border-width: thin;
 }
 
 .clickable:hover {
-  background-color: lightgray;
-  border-style: dotted;
   border-color: gray;
-  border-width: thin;
 }
