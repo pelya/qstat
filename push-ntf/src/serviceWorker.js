@@ -10,6 +10,7 @@ self.addEventListener('push', function (event) {
 		return self.registration.showNotification(title, {
 			body,
 			"icon": "https://liero.1337.cx/openlierox.png",
+			"tag": "OpenLieroX",
 		});
 	};
 
