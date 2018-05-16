@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			const elem = document.querySelector('#numplayers-' + i.toString());
 			elem.disabled = !enable;
 			const label = document.querySelector('#label-numplayers-' + i.toString());
-			label.setAttribute("color", enable ? "black" : "gray");
+			label.style.color = (enable ? "black" : "gray");
 		}
 		for (let i = 0; i <= 4; i++) {
 			const elem = document.querySelector('#updateperiod-' + i.toString());
