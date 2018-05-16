@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-	if (/Mobi/.test(navigator.userAgent)) {
-		const phoneHelpText = document.querySelector('#label-phone');
-		phoneHelpText.style.display = "block";
-	}
+	//if (/Mobi/.test(navigator.userAgent)) {
+	//	const phoneHelpText = document.querySelector('#label-phone');
+	//	phoneHelpText.style.display = "block";
+	//}
 
 	const serverListDiv = document.querySelector('#server-list');
 
