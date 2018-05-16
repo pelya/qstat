@@ -274,6 +274,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		for (let i = 0; i <= 4; i++) {
 			const elem = document.querySelector('#updateperiod-' + i.toString());
 			elem.disabled = !enable;
+			const label = document.querySelector('#label-updateperiod-' + i.toString());
+			label.style.color = (enable ? "black" : "gray");
 		}
 	}
 });
