@@ -14,10 +14,14 @@ input[type=radio] {
   transform: scale(2);
 }
 
-span.clickable {
+.clickable {
+  border-style: hidden;
+  border-color: black;
+  border-width: 2px;
 }
 
-span.clickable:hover {
-  border: 1px;
-  border-style: dashed;
+.clickable:hover {
+  border-style: dotted;
+  border-color: black;
+  border-width: 2px;
 }
