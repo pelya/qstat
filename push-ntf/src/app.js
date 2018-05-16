@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (!server) {
 				break;
 			}
-			console.log('server ' + '#server-' + i.toString() + ' checked ' + server.checked);
+			// console.log('server ' + '#server-' + i.toString() + ' checked ' + server.checked);
 			if (!server.checked) {
 				continue;
 			}

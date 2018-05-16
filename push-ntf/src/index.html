@@ -1,55 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>OpenLieroX server notifier</title>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" href="openlierox.png"/>
 <link rel="stylesheet" href="styles.css"/>
+<script>
+	if (location.protocol != 'https:') {
+		location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+	}
+</script>
 </head>
 <body>
-	<script type="text/javascript">
-		if (location.protocol != 'https:') {
-			location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-		}
-	</script>
-	<h1>OpenLieroX player notifications</h1>
+	<h2>OpenLieroX server notifier</h2>
 	<h3><a href="/munin/localdomain/localhost.localdomain/index.html">Server usage graphs</a></h3>
 	<br/>
-	<button id="push-subscription-button" height="40px">Push notifications !</button>
+	<button id="push-subscription-button">Push notifications !</button>
 	<br/>
 	<h4>Minimum amount of players</h4>
 	<div>
-		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-1" value="1" disabled="1">
+		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-1" value="1" disabled>
 		<span class="clickable" id="label-numplayers-1" onclick="document.getElementById('numplayers-1').click()" style="color:gray">
 			&nbsp;&nbsp;&nbsp;&nbsp; 1 player on the server</span><br/><br/>
-		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-2" value="2" disabled="1" checked="1">
+		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-2" value="2" disabled checked>
 		<span class="clickable" id="label-numplayers-2" onclick="document.getElementById('numplayers-2').click()" style="color:gray">
 			&nbsp;&nbsp;&nbsp;&nbsp; 2 players on the server</span><br/><br/>
-		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-3" value="3" disabled="1">
+		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-3" value="3" disabled>
 		<span class="clickable" id="label-numplayers-3" onclick="document.getElementById('numplayers-3').click()" style="color:gray">
 			&nbsp;&nbsp;&nbsp;&nbsp; 3 players on the server</span><br/><br/>
-		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-4" value="4" disabled="1">
+		&nbsp;&nbsp;<input type="radio" name="numplayers" id="numplayers-4" value="4" disabled>
 		<span class="clickable" id="label-numplayers-4" onclick="document.getElementById('numplayers-4').click()" style="color:gray">
 			&nbsp;&nbsp;&nbsp;&nbsp; 4 players on the server</span><br/><br/>
 	</div>
 	<br/>
 	<h4>How often to notify</h4>
 	<div>
-		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-0" value="0" disabled="1">&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-0" value="0" disabled>&nbsp;&nbsp;&nbsp;&nbsp;
 		Notify once per hour<br/><br/>
-		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-1" value="1" disabled="1">&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-1" value="1" disabled>&nbsp;&nbsp;&nbsp;&nbsp;
 		Notify once per 3 hours<br/><br/>
-		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-2" value="2" disabled="1">&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-2" value="2" disabled>&nbsp;&nbsp;&nbsp;&nbsp;
 		Notify once per 6 hours<br/><br/>
-		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-3" value="3" disabled="1" checked="1">&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-3" value="3" disabled checked>&nbsp;&nbsp;&nbsp;&nbsp;
 		Notify once per day<br/><br/>
-		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-4" value="4" disabled="1">&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;<input type="radio" name="updateperiod" id="updateperiod-4" value="4" disabled>&nbsp;&nbsp;&nbsp;&nbsp;
 		Notify once per 3 days<br/><br/>
 	</div>
 	<br/>
 	<h4>Servers to monitor</h4>
 	<div id="server-list"></div>
-	<script type="text/javascript" src="load_config.php"></script>
-	<script type="text/javascript" src="app.js"></script>
+	<script src="load_config.php"/>
+	<script src="app.js"/>
 </body>
 </html>
