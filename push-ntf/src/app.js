@@ -122,13 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function push_updateSubscription() {
-		console.log('push_updateSubscription() called');
 		navigator.serviceWorker.ready.then(serviceWorkerRegistration => serviceWorkerRegistration.pushManager.getSubscription())
 		.then(subscription => {
-			changePushButtonState('disabled');
+			changePushButtonState('computing');
 
 			if (!subscription) {
 				// We aren't subscribed to push, so set UI to allow the user to enable push
+				changePushButtonState('disabled');
 				return;
 			}
 
