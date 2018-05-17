@@ -18,7 +18,7 @@ self.addEventListener('push', function (event) {
 	};
 
 	if (event.data) {
-		const message = event.data.json();
+		const message = JSON.parse(event.data.text());
 		event.waitUntil(sendNotification(message.msg, message.addr));
 	}
 });
