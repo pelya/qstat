@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const serverListDiv = document.querySelector('#server-list');
 
 	const serverListArray = getServerList();
-	for (var i = 0, len = serverListArray.length; i < len; i++) {
-		var checkbox = document.createElement("input");
+	for (let i = 0, len = serverListArray.length; i < len; i++) {
+		let checkbox = document.createElement("input");
 		checkbox.setAttribute("id", "server-" + i.toString());
 		checkbox.setAttribute("type", "checkbox");
 		checkbox.setAttribute("value", serverListArray[i][0]);
@@ -18,7 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		checkbox.onclick = push_updateSubscription;
 		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0"));
 		serverListDiv.appendChild(checkbox);
-		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0" + serverListArray[i][1] + " (" + serverListArray[i][0] + ")"));
+		serverListDiv.appendChild(document.createTextNode("\u00A0"));
+		let label = document.createElement("span");
+		label.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0" + serverListArray[i][1] + " - " + serverListArray[i][0]));
+		label.setAttribute("id", "label-server-" + i.toString());
+		label.setAttribute("class", "clickable");
+		label.style.color = "gray";
+		label.onclick = function() {
+			document.getElementById("server-" + i.toString()).click();
+		};
+		serverListDiv.appendChild(label);
 		serverListDiv.appendChild(document.createElement("br"));
 		serverListDiv.appendChild(document.createElement("br"));
 	}
@@ -262,6 +271,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				break;
 			}
 			elem.disabled = !enable;
+			const label = document.querySelector('#label-server-' + i.toString());
+			label.style.color = (enable ? "black" : "gray");
 		}
 		for (let i = 1; i <= 4; i++) {
 			const elem = document.querySelector('#numplayers-' + i.toString());
