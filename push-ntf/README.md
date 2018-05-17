@@ -1,7 +1,7 @@
 # Web Push notifier for your OpenLieroX masterserver
 
 ## Requirements
-- Apache with mod_php and HTTPS configured with the certificate.
+- Apache with mod_php and HTTPS configured with SSL certificate - notifications will not work without full HTTPS.
 - PHP 7
     - sqlite3
     - gmp
@@ -21,4 +21,6 @@
     php ./create_vapid_key.php
 
 Then edit /var/lib/openlierox/vapid-push-key.txt and put new public key, private key, and subject into this file.
+
+After that, replace `https://liero.1337.cx/` inside `serviceWorker.js` with the URL of your own website.
 
