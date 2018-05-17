@@ -33,7 +33,7 @@ $db = new SQLite3($dbpath) or die('Cannot open database');
 
 $now = time();
 
-$query = 'SELECT endpoint, key, token FROM subscribers WHERE updatetime < ' . strval($now) .
+$query = 'SELECT endpoint, key, token, silent FROM subscribers WHERE updatetime < ' . strval($now) .
 			' AND numplayers <= ' . $argv[2] .
 			" AND servers LIKE '%=" . $argv[1] . "=%';";
 
@@ -54,7 +54,11 @@ while ($row = $results->fetchArray()) {
 	//$message = str_replace("'", '|', $message);
 	//$json = '{"msg":"' . $message . '","addr":"' . $argv[1] . '"}';
 
-	$json = json_encode(array('msg' => $message, 'addr' => $argv[1]));
+	$json = json_encode(array(
+		'msg' => $message,
+		'addr' => $argv[1],
+		'silent' => ((string) $row[3] == '1' ? 'true' : 'false'),
+	));
 
 	$query = "UPDATE subscribers SET updatetime = updateperiod + " . strval($now) .
 				" WHERE endpoint = '" . $row[0] . "';";

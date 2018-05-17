@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		const elem = document.querySelector('#updateperiod-' + i.toString());
 		elem.onclick = push_updateSubscription;
 	}
+	{
+		const elem = document.querySelector('#vibrate');
+		elem.onclick = push_updateSubscription;
+	}
 
 	const applicationServerKey = getServerPublicKey();
 	let isPushEnabled = false;
@@ -222,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		let numplayers = 2;
 		const updateperiodTable = [ 3600, 3600 * 3, 3600 * 6, 3600 * 23, 3600 * 71 ];
 		let updateperiod = updateperiodTable[3];
+		let silent = 0;
 
 		for (let i = 0; ; i++) {
 			const server = document.querySelector('#server-' + i.toString());
@@ -251,6 +256,11 @@ document.addEventListener("DOMContentLoaded", () => {
 			updateperiod = updateperiodTable[i];
 		}
 
+		{
+			const elem = document.querySelector('#vibrate');
+			silent = elem.checked ? 0 : 1;
+		}
+
 		return fetch('push_subscription.php', {
 			method,
 			body: JSON.stringify({
@@ -260,6 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				servers: serverListDb,
 				numplayers: numplayers,
 				updateperiod: updateperiod,
+				silent: silent,
 			}),
 		}).then(() => subscription);
 	}
@@ -287,6 +298,13 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 			elem.disabled = !enable;
 			const label = document.querySelector('#label-server-' + i.toString());
+			label.style.color = (enable ? "black" : "gray");
+			label.disabled = !enable;
+		}
+		{
+			const elem = document.querySelector('#vibrate');
+			elem.disabled = !enable;
+			const label = document.querySelector('#label-vibrate');
 			label.style.color = (enable ? "black" : "gray");
 			label.disabled = !enable;
 		}

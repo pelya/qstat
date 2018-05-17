@@ -7,8 +7,10 @@ if (!isset($subscription['endpoint']) ||
 	!isset($subscription['updateperiod']) ||
 	!isset($subscription['key']) ||
 	!isset($subscription['token']) ||
+	!isset($subscription['silent']) ||
 	intval($subscription['numplayers']) < 1 ||
-	intval($subscription['updateperiod']) < 3600) {
+	intval($subscription['updateperiod']) < 3600 ||
+	intval($subscription['silent']) < 0) {
 	echo 'Error: not a subscription';
 	return;
 }
@@ -26,13 +28,14 @@ switch ($method) {
 		// Create a new subscription entry in your database (endpoint is unique)
 		// Replace existing subscription if it already exists
 		$query = "INSERT OR REPLACE INTO subscribers (endpoint, key, token, " .
-					"updatetime, updateperiod, expiretime, numplayers, servers) VALUES ('" .
+					"updatetime, updateperiod, expiretime, numplayers, silent, servers) VALUES ('" .
 					SQLite3::escapeString($subscription['endpoint']) . "', '" .
 					SQLite3::escapeString($subscription['key']) . "', '" .
 					SQLite3::escapeString($subscription['token']) . "', 0, " .
 					strval(intval($subscription['updateperiod'])) . ", " .
 					strval($now + 2592000) . ", " .
-					strval(intval($subscription['numplayers'])) . ", '" .
+					strval(intval($subscription['numplayers'])) . ", " .
+					strval(intval($subscription['silent'])) .  ", '" .
 					SQLite3::escapeString($subscription['servers']) . "');";
 		echo str_replace(",", ",\n", $query);
 		echo "\n";
