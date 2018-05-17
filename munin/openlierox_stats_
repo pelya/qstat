@@ -1,7 +1,7 @@
 #!/bin/sh
 # -*- sh -*-
 
-NOTIFY_SUBSCRIBERS_SCRIPT="php /home/pelya/qstat/push-ntf/notify_subscribers.php"
+NOTIFY_SUBSCRIBERS_SCRIPT="php /home/oa/qstat/push-ntf/notify_subscribers.php"
 
 : << =cut
 
@@ -13,7 +13,7 @@ openlierox_stats_ - Wildcard plugin to monitor the amount of active players on O
 
 This is a wildcard plugin. It requires running munin-node-configure periodically.
 
-Copy this file to /usr/share/munin/plugins
+Copy or symlink this file to /usr/share/munin/plugins
 
 Run:
 
@@ -28,6 +28,9 @@ Edit file /etc/cron.d/munin to increase data collection rate for munin-cron from
 Enable 'graph_strategy cgi' in Munin, as described here: https://wiki.debian.org/Munin/ApacheConfiguration
 
 This plugin uses environment variable QSTAT_PATH, which is set to /home/oa/qstat by default.
+
+Replace the line NOTIFY_SUBSCRIBERS_SCRIPT at the top of this script to the path to your qstat repository
+if you want to activate Web PUSH notifications, or remove the line if you do not want Web PUSH.
 
 =head1 USAGE
 

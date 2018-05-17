@@ -24,3 +24,6 @@ Then edit /var/lib/openlierox/vapid-push-key.txt and put new public key, private
 
 After that, replace `https://liero.1337.cx/` inside `serviceWorker.js` with the URL of your own website.
 
+Enable Munin scripts as described in readme in Munin directory, then replace the setting
+`NOTIFY_SUBSCRIBERS_SCRIPT` in file `/usr/share/munin/plugins/openlierox_stats_`
+with the full command to run `notify_subscribers.php` script in your qstat repository.

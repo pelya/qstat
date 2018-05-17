@@ -22,7 +22,9 @@ $now = time();
 
 switch ($method) {
 	case 'POST':
-		// create a new subscription entry in your database (endpoint is unique)
+	case 'PUT':
+		// Create a new subscription entry in your database (endpoint is unique)
+		// Replace existing subscription if it already exists
 		$query = "INSERT OR REPLACE INTO subscribers (endpoint, key, token, " .
 					"updatetime, updateperiod, expiretime, numplayers, servers) VALUES ('" .
 					SQLite3::escapeString($subscription['endpoint']) . "', '" .
@@ -36,22 +38,8 @@ switch ($method) {
 		echo "\n";
 		$db->query($query);
 		break;
-	case 'PUT':
-		// update the key and token of subscription corresponding to the endpoint
-		$query = "UPDATE subscribers SET key = '" .
-					SQLite3::escapeString($subscription['key']) . "', token = '" .
-					SQLite3::escapeString($subscription['token']) . "', updateperiod = " .
-					strval(intval($subscription['updateperiod'])) . ", servers = '" .
-					SQLite3::escapeString($subscription['servers']) . "', numplayers = " .
-					strval(intval($subscription['numplayers'])) . ", expiretime = " .
-					strval($now + 2592000) . " WHERE endpoint = '" .
-					SQLite3::escapeString($subscription['endpoint']) . "';";
-		echo str_replace(",", ",\n", $query);
-		echo "\n";
-		$db->query($query);
-		break;
 	case 'DELETE':
-		// delete the subscription corresponding to the endpoint
+		// Delete the subscription corresponding to the endpoint
 		$query = "DELETE FROM subscribers WHERE endpoint = '" .
 					SQLite3::escapeString($subscription['endpoint']) . "';";
 		echo $query;
