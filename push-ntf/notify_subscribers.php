@@ -47,11 +47,12 @@ while ($row = $results->fetchArray()) {
 	if ($argv[2] == '1') {
 		$message = $argv[2] . ' player on ' . $argv[3];
 	}
-	$message = str_replace('"', '|', $message);
-	$message = str_replace("'", '|', $message);
 
-	//$json = '{"msg":"' . str_replace('"', '|', $message) . '","addr":"' . $argv[1] . '"}';
-	$json = array( 'msg' => $message, 'addr' => $argv[1] );
+	//$message = str_replace('"', '|', $message);
+	//$message = str_replace("'", '|', $message);
+	//$json = '{"msg":"' . $message . '","addr":"' . $argv[1] . '"}';
+
+	$json = json_encode(array('msg' => $message, 'addr' => $argv[1]));
 
 	$query = "UPDATE subscribers SET updatetime = updateperiod + " . strval($now) .
 				" WHERE endpoint = '" . $row[0] . "';";
