@@ -21,7 +21,7 @@ $auth = array(
 );
 
 $pushOptions = array(
-	'TTL' => 3600, // 1 hour
+	'TTL' => 600, // 10 minutes
 	'urgency' => 'normal', // protocol defaults to "normal"
 	'topic' => 'OpenLieroX', // not defined by default
 	'batchSize' => 100, // defaults to 1000
@@ -48,6 +48,8 @@ while ($row = $results->fetchArray()) {
 		$message = $argv[2] . ' player on ' . $argv[3];
 	}
 
+	$json = '{"msg":"' . str_replace('"', '|', $message) . '","addr":"' . $argv[1] . '"}';
+
 	$query = "UPDATE subscribers SET updatetime = updateperiod + " . strval($now) .
 				" WHERE endpoint = '" . $row[0] . "';";
 	echo $query;
@@ -56,7 +58,7 @@ while ($row = $results->fetchArray()) {
 
 	$webPush->sendNotification(
 		$row[0],
-		$message,
+		$json,
 		$row[1],
 		$row[2],
 		false,

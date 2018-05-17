@@ -3,17 +3,22 @@ self.addEventListener('push', function (event) {
 		return;
 	}
 
-	const sendNotification = body => {
-		return self.registration.showNotification("OpenLieroX", {
+	const sendNotification = (body, address) => {
+		let status = self.registration.showNotification("OpenLieroX", {
 			body,
 			"icon": "https://liero.1337.cx/openlierox.png",
 			"badge": "https://liero.1337.cx/openlierox-badge.png",
 			"tag": "OpenLieroX",
 		});
+		self.addEventListener('notificationclick', function(event) {
+			event.notification.close();
+			clients.openWindow("openlierox://" + address);
+		}, false);
+		return status;
 	};
 
 	if (event.data) {
-		const message = event.data.text();
-		event.waitUntil(sendNotification(message));
+		const message = event.data.json();
+		event.waitUntil(sendNotification(message.msg, message.addr));
 	}
 });
