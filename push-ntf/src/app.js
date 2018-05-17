@@ -13,17 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		checkbox.setAttribute("id", "server-" + i.toString());
 		checkbox.setAttribute("type", "checkbox");
 		checkbox.setAttribute("value", serverListArray[i][0]);
-		checkbox.setAttribute("checked", "1");
+		checkbox.checked = true;
 		checkbox.disabled = true;
 		checkbox.onclick = push_updateSubscription;
 		serverListDiv.appendChild(document.createTextNode("\u00A0\u00A0"));
 		serverListDiv.appendChild(checkbox);
 		serverListDiv.appendChild(document.createTextNode("\u00A0"));
 		let label = document.createElement("span");
-		label.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0" + serverListArray[i][1] + " - " + serverListArray[i][0]));
+		label.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0 " + serverListArray[i][1] + " - " + serverListArray[i][0]));
 		label.setAttribute("id", "label-server-" + i.toString());
 		label.setAttribute("class", "clickable");
 		label.style.color = "gray";
+		label.disabled = true;
 		label.onclick = function() {
 			document.getElementById("server-" + i.toString()).click();
 		};
@@ -265,6 +266,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function push_enableControls(enable) {
 		pushButton.disabled = !enable;
+		for (let i = 1; i <= 4; i++) {
+			const elem = document.querySelector('#numplayers-' + i.toString());
+			elem.disabled = !enable;
+			const label = document.querySelector('#label-numplayers-' + i.toString());
+			label.style.color = (enable ? "black" : "gray");
+			label.disabled = !enable;
+		}
+		for (let i = 0; i <= 4; i++) {
+			const elem = document.querySelector('#updateperiod-' + i.toString());
+			elem.disabled = !enable;
+			const label = document.querySelector('#label-updateperiod-' + i.toString());
+			label.style.color = (enable ? "black" : "gray");
+			label.disabled = !enable;
+		}
 		for (let i = 0; ; i++) {
 			const elem = document.querySelector('#server-' + i.toString());
 			if (!elem) {
@@ -273,18 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			elem.disabled = !enable;
 			const label = document.querySelector('#label-server-' + i.toString());
 			label.style.color = (enable ? "black" : "gray");
-		}
-		for (let i = 1; i <= 4; i++) {
-			const elem = document.querySelector('#numplayers-' + i.toString());
-			elem.disabled = !enable;
-			const label = document.querySelector('#label-numplayers-' + i.toString());
-			label.style.color = (enable ? "black" : "gray");
-		}
-		for (let i = 0; i <= 4; i++) {
-			const elem = document.querySelector('#updateperiod-' + i.toString());
-			elem.disabled = !enable;
-			const label = document.querySelector('#label-updateperiod-' + i.toString());
-			label.style.color = (enable ? "black" : "gray");
+			label.disabled = !enable;
 		}
 	}
 });
