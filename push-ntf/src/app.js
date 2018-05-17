@@ -35,9 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	let isPushEnabled = false;
 
 	const pushButton = document.querySelector('#push-subscription-button');
-	if (!pushButton) {
-		return;
-	}
+	const pushButtonLabel = document.querySelector('#label-push-subscription-button');
 
 	pushButton.addEventListener('click', function() {
 		if (isPushEnabled) {
@@ -85,22 +83,22 @@ document.addEventListener("DOMContentLoaded", () => {
 	function changePushButtonState (state) {
 		switch (state) {
 			case 'enabled':
-				pushButton.textContent = "Disable notifications";
+				pushButtonLabel.textContent = "Disable notifications";
 				isPushEnabled = true;
 				push_enableControls(true);
 				break;
 			case 'disabled':
-				pushButton.textContent = "Enable notifications";
+				pushButtonLabel.textContent = "Enable notifications";
 				isPushEnabled = false;
 				push_enableControls(false);
 				pushButton.disabled = false;
 				break;
 			case 'computing':
-				pushButton.textContent = "Loading...";
+				pushButtonLabel.textContent = "Loading...";
 				push_enableControls(false);
 				break;
 			case 'incompatible':
-				pushButton.textContent = "Push notifications are not compatible with this browser";
+				pushButtonLabel.textContent = "This browser does not support notifications";
 				push_enableControls(false);
 				break;
 			default:
