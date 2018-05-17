@@ -6,6 +6,8 @@
 
 ## Installation
 
+Build qstat binary
+
 Copy or symlink relevant munin scripts to /usr/share/munin/plugins
 
 - openlierox_stats_ will monitor OpenLieroX servers
