@@ -51,7 +51,7 @@ while ($row = $results->fetchArray()) {
 	$message = str_replace("'", '|', $message);
 
 	//$json = '{"msg":"' . str_replace('"', '|', $message) . '","addr":"' . $argv[1] . '"}';
-	$json = { msg: $message, addr: $argv[1] };
+	$json = array( 'msg' => $message, 'addr' => $argv[1] );
 
 	$query = "UPDATE subscribers SET updatetime = updateperiod + " . strval($now) .
 				" WHERE endpoint = '" . $row[0] . "';";
