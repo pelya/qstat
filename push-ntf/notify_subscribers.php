@@ -42,6 +42,8 @@ echo "\n";
 
 $results = $db->query($query) or die('Cannot run SQL query');
 
+$webPush->setAutomaticPadding(2000); // Fix for Firefox on Android
+
 while ($row = $results->fetchArray()) {
 	$message = $argv[2] . ' players on ' . $argv[3];
 	if ($argv[2] == '1') {
