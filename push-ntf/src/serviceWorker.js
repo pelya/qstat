@@ -1,3 +1,10 @@
+self.addEventListener('notificationclick', function(event) {
+	event.notification.close();
+	if (event.notification.data) {
+		clients.openWindow("openlierox://" + event.notification.data.json().addr);
+	}
+}, false);
+
 self.addEventListener('push', function (event) {
 	if (!(self.Notification && self.Notification.permission === 'granted')) {
 		return;
@@ -16,10 +23,3 @@ self.addEventListener('push', function (event) {
 		event.waitUntil(sendNotification(event.data.json().msg));
 	}
 });
-
-self.addEventListener('notificationclick', function(event) {
-	if (event.data) {
-		clients.openWindow("openlierox://" + event.data.json().addr);
-	}
-	event.notification.close();
-}, false);
