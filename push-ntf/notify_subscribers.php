@@ -69,17 +69,25 @@ $results = $webPush->flush();
 if ($results !== true) {
 	if ($results !== false) {
 		foreach ($results as $res) {
-			echo "Res: ";
-			print_r($res);
-			echo "\n";
-			echo "Status code: " . $res['statusCode'];
-			echo "\n";
-			if (!$res['success']) {
+			if ($res['success']) {
+				echo "Notification sent";
+				echo "\n";
+			} else {
+				echo "Res: ";
+				print_r($res);
+				echo "\n";
 				if (array_key_exists('expired', $res) && $res['expired']) {
 					$query = "DELETE FROM subscribers WHERE endpoint = '" . $res['endpoint'] . "';";
 					echo $query;
 					echo "\n";
 					$db->query($query) or die('Cannot run SQN query');
+				} else {
+					// Retry notification in 10 minutes
+					$query = "UPDATE subscribers SET updatetime = " . strval($now + 600) .
+						" WHERE endpoint = '" . $row[0] . "';";
+					echo $query;
+					echo "\n";
+					$db->exec($query);
 				}
 			}
 		}
