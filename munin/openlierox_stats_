@@ -90,6 +90,7 @@ if [ "$SERVER" = ".master" ]; then
       cat $LOG.tmp | grep '^OLXS' | tr -s ' ' | grep -v ' no response$' > $LOG.tmp2
       cat $LOG.tmp2 | sed 's/"/\&quot;/g' | sed "s/'/\&#39;/g" | sed 's/[<]/\&lt;/g' | sed 's/[>]/\&gt;/g' | sed 's/[&]/\&amp;/g' > $LOG.tmp
       mv -f $LOG.tmp $LOG
+      rm -f $LOG.tmp2
     )
 
     SERVERS_ACTIVE="`cat $LOG | wc -l`"
