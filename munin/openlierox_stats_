@@ -88,7 +88,8 @@ if [ "$SERVER" = ".master" ]; then
       ./qstat -sort g -cfg qstat.cfg -olxm server.az2000.de:23450 > $LOG.tmp
       grep 'OLXM server.az2000.de:23450 no response' $LOG.tmp && ./qstat -sort g -cfg qstat.cfg -olxm liero.1337.cx:23450 > $LOG.tmp
       cat $LOG.tmp | grep '^OLXS' | tr -s ' ' | grep -v ' no response$' > $LOG.tmp2
-      mv -f $LOG.tmp2 $LOG
+      cat $LOG.tmp2 | sed 's/"/&quot;/g' | sed "s/'/&#39;/g" | sed 's/[<]/&lt;/g' | sed 's/[>]/&gt;/g' | sed 's/[&]/&amp;/g' > $LOG.tmp
+      mv -f $LOG.tmp $LOG
     )
 
     SERVERS_ACTIVE="`cat $LOG | wc -l`"
