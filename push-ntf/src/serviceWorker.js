@@ -23,5 +23,5 @@ self.addEventListener('push', function (event) {
 
 self.addEventListener('notificationclick', function(event) {
 	event.notification.close();
-	event.waitUntil(clients.openWindow("openlierox://" + event.notification.data));
+	event.waitUntil(clients.openWindow("intent://connect/" + event.notification.data + "#Intent;scheme=openlierox;package=openlierox.net;end"));
 }, false);
