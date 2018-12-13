@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const token = subscription.getKey('auth');
 		let serverListDb = "";
 		let numplayers = 2;
-		const updateperiodTable = [ 3600, 3600 * 3, 3600 * 6, 3600 * 23, 3600 * 71 ];
+		const updateperiodTable = [ 3600, 3600 * 3, 3600 * 6, 3600 * 23, 3600 * 71, 600, 1800 ];
 		let updateperiod = updateperiodTable[3];
 		let silent = 0;
 
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			numplayers = i;
 		}
 
-		for (let i = 0; i <= 4; i++) {
+		for (let i = 0; i <= 6; i++) {
 			const elem = document.querySelector('#updateperiod-' + i.toString());
 			if (!elem.checked) {
 				continue;
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			label.style.color = (enable ? "black" : "gray");
 			label.disabled = !enable;
 		}
-		for (let i = 0; i <= 4; i++) {
+		for (let i = 0; i <= 6; i++) {
 			const elem = document.querySelector('#updateperiod-' + i.toString());
 			elem.disabled = !enable;
 			const label = document.querySelector('#label-updateperiod-' + i.toString());

@@ -9,7 +9,7 @@ if (!isset($subscription['endpoint']) ||
 	!isset($subscription['token']) ||
 	!isset($subscription['silent']) ||
 	intval($subscription['numplayers']) < 1 ||
-	intval($subscription['updateperiod']) < 3600 ||
+	intval($subscription['updateperiod']) < 600 ||
 	intval($subscription['silent']) < 0) {
 	echo 'Error: not a subscription';
 	return;
