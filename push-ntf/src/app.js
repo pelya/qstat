@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const elem = document.querySelector('#numplayers-' + i.toString());
 		elem.onclick = push_updateSubscription;
 	}
-	for (let i = 0; i <= 4; i++) {
+	for (let i = 0; i <= 6; i++) {
 		const elem = document.querySelector('#updateperiod-' + i.toString());
 		elem.onclick = push_updateSubscription;
 	}
