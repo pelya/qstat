@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>OpenLieroX server notifier</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="icon" href="openlierox.png"/>
+<link rel="stylesheet" href="styles.css"/>
+<script>
+	if (location.protocol != 'https:') {
+		location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+	}
+</script>
+</head>
+<body>
+	<h3><a href="intent://connect/144.76.67.162:23502#Intent;scheme=openlierox;package=openlierox.net;end">Launch me!</a></h3>
+</body>
+</html>
