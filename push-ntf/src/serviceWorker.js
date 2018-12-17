@@ -15,9 +15,21 @@ self.addEventListener('push', function (event) {
 		});
 	};
 
+	const closeNotification = (addr) => {
+		return self.registration.getNotifications({ "tag": "OpenLieroX" }).then(function(notifications) {
+			for (var n in notifications) {
+				n.close();
+			}
+		});
+	}
+
 	if (event.data) {
 		const data = event.data.json();
-		event.waitUntil(sendNotification(data.msg, data.addr, data.silent));
+		if (data.msg == "close") {
+			event.waitUntil(closeNotification(data.addr));
+		} else {
+			event.waitUntil(sendNotification(data.msg, data.addr, data.silent));
+		}
 	}
 });
 
