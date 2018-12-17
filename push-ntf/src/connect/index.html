@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Launching OpenLieroX</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="icon" href="../openlierox.png"/>
+</head>
+<body>
+	<h3>If automatic redirecting does not work, <a id="redirect-link">follow this link.</a></h3>
+</body>
+<script>
+	const urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.has('a')) {
+		location.href = 'intent://connect/' + urlParams.get('a') + '#Intent;scheme=openlierox;package=openlierox.net;component=openlierox.net.Connect;end';
+		document.getElementById('redirect-link').setAttribute('href', 'openlierox://connect/' + urlParams.get('a'));
+	}
+</script>
+</html>
