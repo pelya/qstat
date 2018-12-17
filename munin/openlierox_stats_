@@ -150,7 +150,7 @@ fi;
 
 echo "players.value $PLAYERS_ACTIVE"
 
-if [ -n "$NOTIFY_SUBSCRIBERS_SCRIPT" -a "$PLAYERS_ACTIVE" -gt 0 -a "$NAME" '!=' '~' ]; then
+if [ -n "$NOTIFY_SUBSCRIBERS_SCRIPT" -a "$NAME" '!=' '~' ]; then
     $NOTIFY_SUBSCRIBERS_SCRIPT "$SERVER" "$PLAYERS_ACTIVE" "$NAME" >>/tmp/openlierox-notify-subscribers.log 2>&1
 fi
 

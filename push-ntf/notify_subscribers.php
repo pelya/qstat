@@ -37,6 +37,11 @@ $query = 'SELECT endpoint, key, token, silent FROM subscribers WHERE updatetime 
 			' AND numplayers <= ' . $argv[2] .
 			" AND servers LIKE '%=" . $argv[1] . "=%';";
 
+if ($argv[2] == '0') {
+	$query = 'SELECT endpoint, key, token, silent FROM subscribers WHERE expiretime > 0 ' .
+			" AND servers LIKE '%=" . $argv[1] . "=%';";
+}
+
 echo $query;
 echo "\n";
 
@@ -48,6 +53,9 @@ while ($row = $results->fetchArray()) {
 	$message = $argv[2] . ' players on ' . $argv[3];
 	if ($argv[2] == '1') {
 		$message = $argv[2] . ' player on ' . $argv[3];
+	}
+	if ($argv[2] == '0') {
+		$message = 'close';
 	}
 
 	//$message = str_replace('"', '|', $message);
@@ -61,7 +69,12 @@ while ($row = $results->fetchArray()) {
 	));
 
 	$query = "UPDATE subscribers SET updatetime = updateperiod + " . strval($now) .
-				" WHERE endpoint = '" . $row[0] . "';";
+				", expiretime = 1 WHERE endpoint = '" . $row[0] . "';";
+
+	if ($argv[2] == '0') {
+		$query = "UPDATE subscribers SET expiretime = 0 WHERE endpoint = '" . $row[0] . "';";
+	}
+
 	echo $query;
 	echo "\n";
 	$db->exec($query);
@@ -108,7 +121,5 @@ if ($results !== true) {
 	echo "Notification sent";
 	echo "\n";
 }
-
-// TODO: delete entries which expired by timeout
 
 $db->close();
