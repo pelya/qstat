@@ -106,7 +106,7 @@ if ($results !== true) {
 					echo $query;
 					echo "\n";
 					$db->query($query) or die('Cannot run SQN query');
-				} else {
+				} else if ($argv[2] != '0') {
 					// Retry notification in 10 minutes
 					$query = "UPDATE subscribers SET updatetime = " . strval($now + 600) .
 						" WHERE endpoint = '" . $row[0] . "';";
