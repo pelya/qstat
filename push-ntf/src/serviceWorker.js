@@ -25,7 +25,7 @@ self.addEventListener('push', function (event) {
 
 	if (event.data) {
 		const data = event.data.json();
-		if (data.msg == "close") {
+		if (data.msg == "Server is empty" || data.msg == "close") {
 			event.waitUntil(closeNotification(data.addr));
 		} else {
 			event.waitUntil(sendNotification(data.msg, data.addr, data.silent));

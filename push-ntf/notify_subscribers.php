@@ -55,7 +55,7 @@ while ($row = $results->fetchArray()) {
 		$message = $argv[2] . ' player on ' . $argv[3];
 	}
 	if ($argv[2] == '0') {
-		$message = 'close';
+		$message = 'Server is empty';
 	}
 
 	//$message = str_replace('"', '|', $message);
