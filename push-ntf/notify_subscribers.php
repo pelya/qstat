@@ -38,7 +38,8 @@ $query = 'SELECT endpoint, key, token, silent FROM subscribers WHERE updatetime 
 			" AND servers LIKE '%=" . $argv[1] . "=%';";
 
 if ($argv[2] == '0') {
-	$query = 'SELECT endpoint, key, token, silent FROM subscribers WHERE expiretime > 0 ' .
+	$query = 'SELECT endpoint, key, token, silent FROM subscribers WHERE expiretime = ' .
+			ip2long(substr($argv[1], 0, strpos($argv[1], ':'))) .
 			" AND servers LIKE '%=" . $argv[1] . "=%';";
 }
 
@@ -64,12 +65,14 @@ while ($row = $results->fetchArray()) {
 
 	$json = json_encode(array(
 		'msg' => $message,
-		'addr' => $argv[1],
+		'addr' => str_replace(':', '!', $argv[1]),
 		'silent' => ((string) $row[3] == '1' ? 'true' : 'false'),
 	));
 
+	$ipaddr = ip2long(substr($argv[1], 0, strpos($argv[1], ':')));
+
 	$query = "UPDATE subscribers SET updatetime = updateperiod + " . strval($now) .
-				", expiretime = 1 WHERE endpoint = '" . $row[0] . "';";
+				", expiretime = " . $ipaddr . " WHERE endpoint = '" . $row[0] . "';";
 
 	if ($argv[2] == '0') {
 		$query = "UPDATE subscribers SET expiretime = 0 WHERE endpoint = '" . $row[0] . "';";
